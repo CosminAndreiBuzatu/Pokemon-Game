@@ -62,4 +62,6 @@ class PokemonDatabase:
 
 
 if __name__ == "__main__":
-    
+    db = PokemonDatabase()
+    db.createPokemonTable()
+
