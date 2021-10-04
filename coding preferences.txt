@@ -1,0 +1,23 @@
+
+1)	How many spaces will you use for indentation? 4
+2)	If you needed a variable to store a number of penguins, how would you name it?  Some examples are:
+d.	numberOfPenguins (camleCase)
+
+3)	If you needed a class to manage your penguin data, what would you call it?  E.g.
+a.	PenguinManager
+
+4)	How would you name a public class method which returned the number of penguins? E.g.
+a.	getPenguins
+
+5)	How would you name a private class method which retrieved the number of penguins?
+a.	__getPenguins
+
+6)	How would you capitalise acronyms as a method?
+b.	getHtmlTag
+d.	__getHtmlTag
+
+7)	How would you capitalise variable which start as an acronym?
+c.	HtmlTag
+
+8)	How would you capitalise SQLite as a variable? however the package likes it
+9)	How would you capitalise SQLite as a method? however the packatge displays it
