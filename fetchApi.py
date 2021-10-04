@@ -9,6 +9,7 @@ response = r.json()
 Items = response["results"]
 for pokemon in Items:
         print(pokemon["name"])
+        print(pokemon["url"])
 #     theFirstObject = departures[busNumber][0]
 #     # for each bus object in the response
 #     print(busNumber)
