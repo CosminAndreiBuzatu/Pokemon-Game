@@ -7,7 +7,7 @@ class PokemonDatabase:
 
     def __init__(self):
         try:
-            self.database = sqlite3.connect(f"{self.name}.db")
+            self.database = sqlite3.connect(f"gameDatabase.db")
         except Exception as e:
             print(e)
         self.cursor = self.database.cursor()
@@ -23,13 +23,20 @@ class PokemonDatabase:
         self.cursor.execute(sqlCommand)
         self.database.commit()
 
-    def addPokemon(self, pokemon):
+    def clearPokemonTable(self):
         sqlCommand = f'''
-            INSERT INTO Pokemon 
-            ( Name, Artwork, Attack, Defence, Type1, Type2 ) 
-            VALUES  {pokemon.name}, {pokemon.artwork}, {pokemon.attack}, {pokemon.defense}, {pokemon.type1}, {pokemon.type2} ;
+            Delete * FROM Pokemon
         '''
         self.cursor.execute(sqlCommand)
+        self.database.commit()
+
+    def addPokemon(self, pokemon):
+        values = [pokemon.name, pokemon.artwork, pokemon.attack, pokemon.defense, pokemon.type1, pokemon.type2]
+        sqlCommand = f'''
+            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Type1, Type2 ) 
+            VALUES ( ? , ? , ? , ? , ? , ? );
+        '''
+        self.cursor.execute(sqlCommand, values)
         self.database.commit()
 
     def addManyPokemon(self, listOfPokemon):
@@ -39,15 +46,15 @@ class PokemonDatabase:
     def getPokemon(self, name):
         sqlCommand = f'''
             SELECT * FROM Pokemon
-            WHERE Name = {name};
+            WHERE Name = ?;
         '''
-        self.cursor.execute(sqlCommand)
+        self.cursor.execute(sqlCommand, [name])
         rows = self.cursor.fetchall()
 
         if len(rows) == 0:
             return "Error, no pokemon found"
         else:
-            return SQLToPokemon(rows[0])
+            return self.SQLToPokemon(rows[0])
 
     def SQLToPokemon(self, row):
         dict = {
@@ -60,8 +67,36 @@ class PokemonDatabase:
             }
         return Pokemon(dict)
 
+    def getAllNames(self):
+
+        sqlCommand = f'''
+            SELECT Name FROM Pokemon;
+        '''
+        self.cursor.execute(sqlCommand)
+        rows = self.cursor.fetchall()
+
+        if len(rows) == 0:
+            return "Error, no pokemon found"
+        else:
+            listForm = [x[0] for x in rows]
+            return listForm
+
+
+
 
 if __name__ == "__main__":
     db = PokemonDatabase()
     db.createPokemonTable()
+    pok1 = {
+        "name": "Bulbasaur",
+        "artwork": "url",
+        "attack": 40,
+        "defence": 40,
+        "type1": "Grass",
+        "type2": "Poison"
+    }
+    p1 = Pokemon(pok1)
+    db.addManyPokemon([p1])
+    out = db.getAllNames()
+    print(out)
 
