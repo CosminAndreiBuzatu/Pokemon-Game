@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-item: center;
+    height: 1000px;
+    background-color: red;
+    background-image: linear-gradient(to bottom right, red, yellow);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div {
+        position: absolute;
+        top: 50%;
+}
+
+img{
+    height: 65%;
+    display: block;
+    position: absolute;
+    margin: 20px;
+}
+
+a {
+    font-family: sans-serif, monospace;
+    border-radius: 150px;
+}
+
+button {
+    background-color: blue;
+    color: yellow;
+    text-align: center;
+    margin: 20px;
+}
+
+button:hover{
+        background-color: purple;
+    }
+
+@media screen and (max-width: 600px) {
+
+img{
+    height: 35%;
+    display: block;
+    position: absolute;
+    margin: 20px;
+}
+}
