@@ -47,5 +47,10 @@ if __name__ == "__main__":
     g = Game()
     g.getNewDecks()
 
-    newList = []
-    newList.pop()
+    topcards = g.getTopCards()
+    print(topcards[0].name)
+
+    g.removeTopCards()
+
+    topcards = g.getTopCards()
+    print(topcards[0].name)
