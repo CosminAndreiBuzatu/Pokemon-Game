@@ -4,7 +4,7 @@ class Pokemon:
         self.name = input_dictionary["name"]
         self.artwork = input_dictionary["artwork"]
         self.attack = input_dictionary["attack"]
-        self.defense = input_dictionary["defence"]
+        self.defense = input_dictionary["defense"]
         self.type1 = input_dictionary["type1"]
         self.type2 = input_dictionary["type2"]
 

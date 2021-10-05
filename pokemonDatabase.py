@@ -62,7 +62,7 @@ class PokemonDatabase:
             "name": row[0],
             "artwork": row[1],
             "attack": row[2],
-            "defence": row[3],
+            "defense": row[3],
             "type1": row[4],
             "type2": row[5]
             }

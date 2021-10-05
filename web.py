@@ -9,15 +9,16 @@ from pokemon import Pokemon
 
 app = Flask(__name__)
 #pokemonGame = Game()
-db = PokemonDatabase()
+# db = PokemonDatabase()
 
-@app.route("/")
+@app.route("/temp")
 def index():
     return render_template('mainPage.html')
 
 
-@app.route("/pokedex")
+@app.route("/")
 def pokedex():
+    db = PokemonDatabase()
     names = db.getAllNames()
     if names:
         inputName = names[0]
@@ -29,9 +30,26 @@ def pokedex():
     return render_template('Pokedex.html', pokemon=pokemon, names=names)
 
 
+@app.route("/pokedex")
+def pokedex2():
+    db = PokemonDatabase()
+    names = db.getAllNames()
+    inputName = request.args.get("name")
+    if inputName is not None:
+        pokemon = db.getPokemon(inputName)
+    elif names:
+        inputName = names[0]
+        pokemon = db.getPokemon(inputName)
+    else:
+        pokemon = Pokemon(bulbasaur_dict)
+        pokemon.name = "Empty database"
+
+    return render_template('Pokedex.html', pokemon=pokemon, names=names)
+
 @app.route("/downloadPokemon")
 def downloadPokemon():
-    db.downloadAllPokemon()
+    db = PokemonDatabase()
+    db.downloadPokemon()
 
     names = db.getAllNames()
     if names:
