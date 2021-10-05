@@ -63,7 +63,7 @@ class PokemonDatabase:
             "attack": row[2],
             "defence": row[3],
             "type1": row[4],
-            "type2": row[4]
+            "type2": row[5]
             }
         return Pokemon(dict)
 
