@@ -23,6 +23,7 @@ img{
 
 a {
     font-family: sans-serif, monospace;
+    border-radius: 150px;
 }
 
 button {
@@ -30,10 +31,11 @@ button {
     color: yellow;
     text-align: center;
     margin: 20px;
-    :hover{
-        background-color: white;
-    }
 }
+
+button:hover{
+        background-color: purple;
+    }
 
 div {
         position: absolute;
