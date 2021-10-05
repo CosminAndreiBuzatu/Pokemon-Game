@@ -2,12 +2,13 @@
 
 from flask import Flask, render_template, request
 from constants import *
-from game import Game
+#from game import Game
 from pokemonDatabase import PokemonDatabase
+from pokemon import Pokemon
 
 
 app = Flask(__name__)
-pokemonGame = Game()
+#pokemonGame = Game()
 db = PokemonDatabase()
 
 @app.route("/")
@@ -42,3 +43,4 @@ def downloadPokemon():
 
     return render_template('Pokedex.html', pokemon=pokemon, names=names)
 
+app.run()
