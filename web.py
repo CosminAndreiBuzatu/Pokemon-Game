@@ -2,13 +2,13 @@
 
 from flask import Flask, render_template, request
 from constants import *
-# from game import Game
-# from pokemonDatabase import PokemonDatabase
+from game import Game
+from pokemonDatabase import PokemonDatabase
 
 
 app = Flask(__name__)
-# pokemonGame = Game()
-# db = PokemonDatabase()
+pokemonGame = Game()
+db = PokemonDatabase()
 
 @app.route("/")
 def index():
