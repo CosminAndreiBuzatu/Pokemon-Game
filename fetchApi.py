@@ -2,21 +2,32 @@
 # https://pokeapi.co/
 import requests
 
-r = requests.get('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151')
-print(r.text)
-response = r.json()
+from pokemon import Pokemon
 
-Items = response["results"]
-for pokemon in Items:
-        print(pokemon["name"])
-        print(pokemon["url"])
-#     theFirstObject = departures[busNumber][0]
-#     # for each bus object in the response
-#     print(busNumber)
 
-# Create a database which is able to store the following information about a Pokemon:
-# - Name
-# - Artwork image (as URL)
-# - Attack value
-# - Defense value
-# - Types
+# Method to extract API data of one pokemon
+def fetchPokemon(number):
+    r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{number}')
+    response = r.json()
+
+    input_dict = {
+        "name": response["species"]["name"],
+        "artwork": response["sprites"]["front_default"],
+        "attack": response["stats"][1]["base_stat"],
+        "defence": response["stats"][2]["base_stat"],
+        "type1": response["types"][0]["type"]["name"],
+        "type2": "none"
+    }
+    if len(response["types"]) > 1:
+        input_dict["type2"] = response["types"][1]["type"]["name"]
+
+    return Pokemon(input_dict)
+
+
+# method to get a list of pokemon from start number ot end number e.g. 1 to 151
+def fetchManyPokemon(start, end):
+    listOfPokemon = []
+    for number in range(start, end + 1):
+        pokemon = fetchPokemon(number)
+        listOfPokemon.append(pokemon)
+    return listOfPokemon
