@@ -81,22 +81,3 @@ class PokemonDatabase:
             listForm = [x[0] for x in rows]
             return listForm
 
-
-
-
-if __name__ == "__main__":
-    db = PokemonDatabase()
-    db.createPokemonTable()
-    pok1 = {
-        "name": "Bulbasaur",
-        "artwork": "url",
-        "attack": 40,
-        "defence": 40,
-        "type1": "Grass",
-        "type2": "Poison"
-    }
-    p1 = Pokemon(pok1)
-    db.addManyPokemon([p1])
-    out = db.getAllNames()
-    print(out)
-
