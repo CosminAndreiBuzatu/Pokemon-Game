@@ -7,7 +7,12 @@ from pokemon import Pokemon
 
 # Method to extract API data of one pokemon
 def fetchPokemon(number):
-    r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{number}')
+    try:
+        r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{number}')
+    except:
+        print("Cannot connect to API")
+        return None
+
     response = r.json()
 
     input_dict = {
