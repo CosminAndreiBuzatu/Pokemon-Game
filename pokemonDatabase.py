@@ -86,3 +86,8 @@ class PokemonDatabase:
         self.clearPokemonTable()
         listOfPokemon = fetchManyPokemon(1, 10)
         self.addManyPokemon(listOfPokemon)
+
+db = PokemonDatabase()
+db.downloadPokemon()
+listp = db.getAllNames()
+print(listp)
