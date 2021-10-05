@@ -57,6 +57,24 @@ class PokemonDatabase:
         else:
             return self.SQLToPokemon(rows[0])
 
+    def getAllPokemon(self):
+        sqlCommand = '''
+            SELECT * FROM Pokemon
+        '''
+
+        self.cursor.execute(sqlCommand)
+        rows = self.cursor.fetchall()
+
+        if len(rows) == 0:
+            return "Error, no pokemon found"
+
+        output = []
+        for row in rows:
+            pokemon  = self.SQLToPokemon(row)
+            output.append(pokemon)
+        return output
+
+
     def SQLToPokemon(self, row):
         dict = {
             "name": row[0],
@@ -88,6 +106,6 @@ class PokemonDatabase:
         self.addManyPokemon(listOfPokemon)
 
 db = PokemonDatabase()
-db.downloadPokemon()
-listp = db.getAllNames()
+# db.downloadPokemon()
+listp = db.getAllPokemon()
 print(listp)
