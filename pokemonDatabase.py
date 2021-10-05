@@ -105,7 +105,9 @@ class PokemonDatabase:
         listOfPokemon = fetchManyPokemon(1, 10)
         self.addManyPokemon(listOfPokemon)
 
-db = PokemonDatabase()
-# db.downloadPokemon()
-listp = db.getAllPokemon()
-print(listp)
+
+if __name__ == "__main__":
+    db = PokemonDatabase()
+    # db.downloadPokemon()
+    listp = db.getAllPokemon()
+    print(listp)
