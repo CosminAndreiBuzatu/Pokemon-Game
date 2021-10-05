@@ -1,6 +1,7 @@
 # database class/functions. create and use a SQL database
 import sqlite3
 from pokemon import Pokemon
+from fetchApi import *
 
 
 class PokemonDatabase:
@@ -25,7 +26,7 @@ class PokemonDatabase:
 
     def clearPokemonTable(self):
         sqlCommand = f'''
-            Delete * FROM Pokemon
+            DELETE FROM Pokemon
         '''
         self.cursor.execute(sqlCommand)
         self.database.commit()
@@ -64,7 +65,7 @@ class PokemonDatabase:
             "defence": row[3],
             "type1": row[4],
             "type2": row[4]
-            }
+        }
         return Pokemon(dict)
 
     def getAllNames(self):
@@ -81,3 +82,7 @@ class PokemonDatabase:
             listForm = [x[0] for x in rows]
             return listForm
 
+    def downloadPokemon(self):
+        self.clearPokemonTable()
+        listOfPokemon = fetchManyPokemon(1, 10)
+        self.addManyPokemon(listOfPokemon)

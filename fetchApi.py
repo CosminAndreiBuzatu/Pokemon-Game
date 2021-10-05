@@ -27,6 +27,7 @@ def fetchPokemon(number):
 
     return Pokemon(input_dict)
 
+
 # method to get a list of pokemon from start number ot end number e.g. 1 to 151
 def fetchManyPokemon(start, end):
     listOfPokemon = []
