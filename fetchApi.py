@@ -1,7 +1,6 @@
 # This class/functions work to extract information from the pokemon API
 # https://pokeapi.co/
 import requests
-
 from pokemon import Pokemon
 
 
@@ -28,7 +27,6 @@ def fetchPokemon(number):
 
     return Pokemon(input_dict)
 
-
 # method to get a list of pokemon from start number ot end number e.g. 1 to 151
 def fetchManyPokemon(start, end):
     listOfPokemon = []
@@ -36,3 +34,13 @@ def fetchManyPokemon(start, end):
         pokemon = fetchPokemon(number)
         listOfPokemon.append(pokemon)
     return listOfPokemon
+
+# r = requests.get('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151')
+
+# Store the following:
+# For each Pokemon:
+# - Name
+# - Artwork image (as URL)
+# - Attack value
+# - Defense value
+# - Types
