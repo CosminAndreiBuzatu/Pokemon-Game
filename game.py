@@ -35,6 +35,12 @@ class Game:
 
         return [pokemon1, pokemon2]
 
+    def getCardsLeft(self):
+        # returns the number of cards in both decks, in a list
+        n1 = len(self.deck1)
+        n2 = len(self.deck2)
+        return [n1, n2]
+
     def removeTopCards(self):
         # deletes the top cards of both decks, if no cards were in a deck, do nothing
         if self.deck1:

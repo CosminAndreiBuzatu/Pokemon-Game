@@ -80,17 +80,17 @@ color:white;
   cursor: pointer;
   position: absolute;
   display: inline-block;
-  top:80%;
-  left:80%;
+  top:auto;
+  left:auto;
 }
 
 .pokecard {
-  position: absolute;
+  position: relative;
   display: inline-block;
   height: 500px;
   width: 300px;
-  top:20%;
-  left: 40%;
+  top:auto;
+  left: auto;
   background-image: url("https://live.staticflickr.com/2512/3945669085_3acdd36bf0_n.jpg");
   border-radius: 25px;
 }
@@ -120,6 +120,23 @@ color:white;
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+.cardDisplay{
+    display: flex;
+    justify-content: space-around;
+}
+
+.dexDisplay{
+  display: flex;
+  justify-content: center;
+}
+
+.buttonDisplay{
+    display: flex;
+    justify-content: space-around;
+}
+
+
 </style>
 </body>
 </html>
