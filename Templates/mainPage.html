@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>PokemonMenu</title>
-	<link rel = "stylesheet" type = "text/css" href = "../styling/mainPage.css">
+	<link rel = "stylesheet" type = "text/css" href="{{ url_for('static', filename='mainPage.css') }}" />
 </head>
 
 <body>
-    <img src = "../images/pokemon-logo.png" alt="Blue and Yellow Pokemon Logo."/>
+    <img src = "{{ url_for('static', filename='pokemon-logo.png') }}" alt="Blue and Yellow Pokemon Logo."/>
 <!--    <p>Testin testin I'm just suggestin</p>-->
         <div>
             <a href="/pokedex"><button>Click Here to See the Podex</button></a>
-            <a href =""><button>Click Here to Start the Game</button></a>
+            <a href ="/cardGameNew"><button>Click Here to Start the Game</button></a>
         </div>
 </body>
 </html>
