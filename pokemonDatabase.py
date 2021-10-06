@@ -9,9 +9,10 @@ class PokemonDatabase:
     def __init__(self):
         try:
             self.database = sqlite3.connect(f"gameDatabase.db")
+            self.cursor = self.database.cursor()
+            self.createPokemonTable()
         except Exception as e:
             print(e)
-        self.cursor = self.database.cursor()
 
     def __del__(self):
         self.database.close()
@@ -108,7 +109,6 @@ class PokemonDatabase:
 
 if __name__ == "__main__":
     db = PokemonDatabase()
-    db.createPokemonTable()
     # db.downloadPokemon()
     listp = db.getAllPokemon()
     print(listp)
