@@ -1,3 +1,64 @@
 # This file is for creating and running site using Flask
-import flask
 
+from flask import Flask, render_template, request
+from constants import *
+#from game import Game
+from pokemonDatabase import PokemonDatabase
+from pokemon import Pokemon
+
+
+app = Flask(__name__)
+#pokemonGame = Game()
+# db = PokemonDatabase()
+
+@app.route("/temp")
+def index():
+    return render_template('mainPage.html')
+
+
+@app.route("/")
+def pokedex():
+    db = PokemonDatabase()
+    names = db.getAllNames()
+    if names:
+        inputName = names[0]
+        pokemon = db.getPokemon(inputName)
+    else:
+        pokemon = Pokemon(bulbasaur_dict)
+        pokemon.name = "Empty database"
+
+    return render_template('Pokedex.html', pokemon=pokemon, names=names)
+
+
+@app.route("/pokedex")
+def pokedex2():
+    db = PokemonDatabase()
+    names = db.getAllNames()
+    inputName = request.args.get("name")
+    if inputName is not None:
+        pokemon = db.getPokemon(inputName)
+    elif names:
+        inputName = names[0]
+        pokemon = db.getPokemon(inputName)
+    else:
+        pokemon = Pokemon(bulbasaur_dict)
+        pokemon.name = "Empty database"
+
+    return render_template('Pokedex.html', pokemon=pokemon, names=names)
+
+@app.route("/downloadPokemon")
+def downloadPokemon():
+    db = PokemonDatabase()
+    db.downloadPokemon()
+
+    names = db.getAllNames()
+    if names:
+        inputName=names[0]
+        pokemon = db.getPokemon(inputName)
+    else:
+        pokemon = Pokemon(bulbasaur_dict)
+        pokemon.name = "Empty database"
+
+    return render_template('Pokedex.html', pokemon=pokemon, names=names)
+
+app.run()

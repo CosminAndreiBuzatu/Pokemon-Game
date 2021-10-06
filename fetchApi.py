@@ -18,7 +18,7 @@ def fetchPokemon(number):
         "name": response["species"]["name"],
         "artwork": response["sprites"]["front_default"],
         "attack": response["stats"][1]["base_stat"],
-        "defence": response["stats"][2]["base_stat"],
+        "defense": response["stats"][2]["base_stat"],
         "type1": response["types"][0]["type"]["name"],
         "type2": "none"
     }
