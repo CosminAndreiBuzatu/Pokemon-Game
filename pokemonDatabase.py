@@ -82,8 +82,9 @@ class PokemonDatabase:
             "attack": row[2],
             "defence": row[3],
             "type1": row[4],
-            "type2": row[4]
-        }
+            "type2": row[5]
+            }
+
         return Pokemon(dict)
 
     def getAllNames(self):
@@ -102,9 +103,8 @@ class PokemonDatabase:
 
     def downloadPokemon(self):
         self.clearPokemonTable()
-        listOfPokemon = fetchManyPokemon(1, 10)
+        listOfPokemon = fetchManyPokemon(1, 151)
         self.addManyPokemon(listOfPokemon)
-
 
 if __name__ == "__main__":
     db = PokemonDatabase()
