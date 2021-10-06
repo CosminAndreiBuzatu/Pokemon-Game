@@ -20,7 +20,7 @@ def fetchPokemon(number):
         "attack": response["stats"][1]["base_stat"],
         "defense": response["stats"][2]["base_stat"],
         "type1": response["types"][0]["type"]["name"],
-        "type2": ""
+        "type2": "none"
     }
     if len(response["types"]) > 1:
         input_dict["type2"] = response["types"][1]["type"]["name"]
