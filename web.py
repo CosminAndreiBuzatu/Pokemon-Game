@@ -2,14 +2,14 @@
 
 from flask import Flask, render_template, request
 from constants import *
-#from game import Game
+from game import Game
 from pokemonDatabase import PokemonDatabase
 from pokemon import Pokemon
 
-
 app = Flask(__name__)
-#pokemonGame = Game()
-# db = PokemonDatabase()
+
+
+pokemonGame = Game()
 
 @app.route("/temp")
 def index():
@@ -17,21 +17,12 @@ def index():
 
 
 @app.route("/")
-def pokedex():
-    db = PokemonDatabase()
-    names = db.getAllNames()
-    if names:
-        inputName = names[0]
-        pokemon = db.getPokemon(inputName)
-    else:
-        pokemon = Pokemon(bulbasaur_dict)
-        pokemon.name = "Empty database"
-
-    return render_template('Pokedex.html', pokemon=pokemon, names=names)
+def mainPage():
+    return render_template('mainPage.html')
 
 
 @app.route("/pokedex")
-def pokedex2():
+def pokedex():
     db = PokemonDatabase()
     names = db.getAllNames()
     inputName = request.args.get("name")
@@ -46,6 +37,7 @@ def pokedex2():
 
     return render_template('Pokedex.html', pokemon=pokemon, names=names)
 
+
 @app.route("/downloadPokemon")
 def downloadPokemon():
     db = PokemonDatabase()
@@ -53,12 +45,13 @@ def downloadPokemon():
 
     names = db.getAllNames()
     if names:
-        inputName=names[0]
+        inputName = names[0]
         pokemon = db.getPokemon(inputName)
     else:
         pokemon = Pokemon(bulbasaur_dict)
         pokemon.name = "Empty database"
 
     return render_template('Pokedex.html', pokemon=pokemon, names=names)
+
 
 app.run()
