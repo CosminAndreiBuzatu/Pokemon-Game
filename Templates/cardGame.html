@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+<h1>Card Game</h1>
+
+<div class="cardDisplay">
+  <div>
+  <div class="pokecard">
+  <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
+  <div class="pokemonDetails">
+  <p class="namePokemon">{{cards[0].name}}</p>
+  <img class="pokemonImage" src={{cards[0].artwork}} alt="Logo">
+  </div>
+  <p class="details">Attack: {{cards[0].attack}}</p>
+    <p class="details">Defense: {{cards[0].defense}}</p>
+    <p class="details">Type: {{cards[0].type1}} {{cards[0].type2}}</p>
+  </div>
+    <br>
+    <br>
+    <h2>Cards Left: {{cardsLeft[0]}}</h2>
+  </div>
+
+  <div>
+  <div class="pokecard">
+  <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
+  <div class="pokemonDetails">
+  <p class="namePokemon">{{cards[1].name}}</p>
+  <img class="pokemonImage" src={{cards[1].artwork}} alt="Logo">
+  </div>
+  <p class="details">Attack: {{cards[1].attack}}</p>
+    <p class="details">Defense: {{cards[1].defense}}</p>
+    <p class="details">Type: {{cards[1].type1}} {{cards[1].type2}}</p>
+  </div>
+    <br>
+    <br>
+    <h2>Cards Left: {{cardsLeft[1]}}</h2>
+  </div>
+</div>
+<br>
+<div class="buttonDisplay">
+<form id="downloadPokemon" action="/cardNewGame" method="get">
+  <button class="submit" type="submit" value="/newGame" >New Game</button>
+</form>
+<form id="Next Turn" action="/cardGameNextTurn" method="get">
+  <button class="submit" type="submit" value="/nextTurn" >Next Turn</button>
+</form>
+<form id="New Game" action="/cardGameDownload" method="get">
+  <button class="submit" type="submit" value="/downloadPokemon" >Download Data</button>
+</form>
+</div>
+</div>
+{% endblock %}
