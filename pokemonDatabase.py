@@ -108,6 +108,7 @@ class PokemonDatabase:
 
 if __name__ == "__main__":
     db = PokemonDatabase()
+    db.createPokemonTable()
     # db.downloadPokemon()
     listp = db.getAllPokemon()
     print(listp)
