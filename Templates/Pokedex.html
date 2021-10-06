@@ -118,22 +118,24 @@ color:white;
 <h1>Pokedex</h1>
 <div class="pokecard">
 <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
-<div class"pokemonDetails">
-<p class="namePokemon">Charmander</p>
-<img class="pokemonImage" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"alt="Logo">
+<div class="pokemonDetails">
+<p class="namePokemon">{{pokemon.name}}</p>
+<img class="pokemonImage" src={{pokemon.artwork}} alt="Logo">
 </div>
-<p class="details">Attack:</p>
-  <p class="details">Defense:</p>
-  <p class="details">Type1 & Type2:</p>
+<p class="details">Attack: {{pokemon.attack}}</p>
+  <p class="details">Defense: {{pokemon.defense}}</p>
+  <p class="details">Type: {{pokemon.type1}} {{pokemon.type2}}</p>
 
 </div>
-<button class="submit" type="submit" form="nameform" value="Submit">Download Data</button>
+<form id="downloadPokemon" action="/downloadPokemon" method="get">
+  <button class="submit" type="submit" value="/downloadPokemon" >Download Data</button>
+</form>
 <div class="dropdown">
   <button class="dropbtn">Select Pokemon</button>
   <div class="dropdown-content">
-  <p>Pokemon 1</p>
-  <p>Pokemon 2</p>
-  <p>Pokemon 3</p>
+    {% for name in names %}
+  <p><a type="button" href="/pokedex?name={{name}}">{{name}}</a></p>
+    {% endfor %}
   </div>
 </div>
 
