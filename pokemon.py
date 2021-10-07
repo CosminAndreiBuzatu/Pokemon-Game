@@ -13,3 +13,7 @@ class Pokemon:
     def SQLFormat(self):
         # convert pokemon data into SQL format for database
         pass
+
+    def getTypes(self):
+        typesString = " ".join(self.types)
+        return typesString

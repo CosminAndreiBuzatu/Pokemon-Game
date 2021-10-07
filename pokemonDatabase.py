@@ -71,7 +71,7 @@ class PokemonDatabase:
 
         output = []
         for row in rows:
-            pokemon  = self.SQLToPokemon(row)
+            pokemon = self.SQLToPokemon(row)
             output.append(pokemon)
         return output
 

@@ -7,8 +7,12 @@
 # - Once a player runs out of cards completely the game is over
 
 import random
+
+import constants
+import fetchApi
 from pokemon import Pokemon
 from pokemonDatabase import PokemonDatabase
+from pokemonTypes import Types
 
 
 class Game:
@@ -64,12 +68,12 @@ class Game:
 
     def availableAttacks(self):
         pokemon = self.deck1[0]
-        output = [pokemon.type1, pokemon.type2]
+        output = pokemon.types
         return output
 
     def AiPickAttack(self):
         pokemon = self.deck1[0]
-        output = random.choice([pokemon.type1, pokemon.type2])
+        output = random.choice(pokemon.types)
         return output
 
     def AiAttacks(self, attackType) -> bool:
@@ -95,7 +99,9 @@ class Game:
     def dealDamage(self, attacker, defender, attackType):
         attackValue = attacker.attack
         defenderValue = defender.defense
-        # type multiplyer happens here
+        attackTypeObj = fetchApi.fetchTypes(constants.typeDict2[attackType])
+        multiplyer = attackTypeObj.calculateDamageMultiplier(defender.types)
+        attackValue *= multiplyer
         return attackValue > defenderValue
 
     def winCard(self, userWon):
