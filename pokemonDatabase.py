@@ -20,7 +20,7 @@ class PokemonDatabase:
     def createPokemonTable(self):
         # Create a SQL Table
         sqlCommand = f'''
-            CREATE TABLE IF NOT EXISTS Pokemon ( Name TEXT, Artwork TEXT, Attack INT, Defence INT, Type1 TEXT, Type2 TEXT )
+            CREATE TABLE IF NOT EXISTS Pokemon ( Name TEXT, Artwork TEXT, Attack INT, Defence INT, Types TEXT )
         '''
         self.cursor.execute(sqlCommand)
         self.database.commit()
@@ -33,10 +33,10 @@ class PokemonDatabase:
         self.database.commit()
 
     def addPokemon(self, pokemon):
-        values = [pokemon.name, pokemon.artwork, pokemon.attack, pokemon.defense, pokemon.type1, pokemon.type2]
+        values = [pokemon.name, pokemon.artwork, pokemon.attack, pokemon.defense, ' '.join(pokemon.types)]
         sqlCommand = f'''
-            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Type1, Type2 ) 
-            VALUES ( ? , ? , ? , ? , ? , ? );
+            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Types ) 
+            VALUES ( ? , ? , ? , ? , ? );
         '''
         self.cursor.execute(sqlCommand, values)
         self.database.commit()
@@ -82,8 +82,7 @@ class PokemonDatabase:
             "artwork": row[1],
             "attack": row[2],
             "defense": row[3],
-            "type1": row[4],
-            "type2": row[5]
+            "types": row[4].split()
             }
 
         return Pokemon(dict)
@@ -109,6 +108,7 @@ class PokemonDatabase:
 
 if __name__ == "__main__":
     db = PokemonDatabase()
-    # db.downloadPokemon()
+    db.clearPokemonTable()
+    db.downloadPokemon()
     listp = db.getAllPokemon()
     print(listp)

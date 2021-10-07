@@ -5,8 +5,7 @@ class Pokemon:
         self.artwork = input_dictionary["artwork"]
         self.attack = input_dictionary["attack"]
         self.defense = input_dictionary["defense"]
-        self.type1 = input_dictionary["type1"]
-        self.type2 = input_dictionary["type2"]
+        self.types = input_dictionary["types"]
 
     def __str__(self):
         return self.name
