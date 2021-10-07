@@ -1,8 +1,6 @@
 # game class is responsible for holding and processing data concerning the game
 # this is to be used in web where user interacts with it
 # Todo
-# - Handle the event when the user has chosen an attack type and clicks 'Attack'
-# - Handle the event when the user has chosen 'Continue' for the AI to attack
 # - Compare the attack of the attacker with the defense of the defender, modifying the attack value based on the attacker/defender types.
 # - If the attacker wins, they get the defender’s card and continue attacking the following round.
 # - If the defender wins, they get the attacker’s card and also become the attacker for the following round.
@@ -16,6 +14,7 @@ from pokemonDatabase import PokemonDatabase
 class Game:
     def __init__(self):
         self.usersTurn = random.choice([True, False])
+        self.winner = ""
         self.deck1 = []
         self.deck2 = []
 
@@ -31,20 +30,20 @@ class Game:
         self.deck1 = newDeck[:midpoint]
         self.deck2 = newDeck[midpoint:]
 
-    def getTopCards(self):
+    def getTopCards(self) -> list:
         # return a list of two pokemon, one each for the two decks
         if self.deck1:
-            pokemon1 = self.deck1[-1]
+            pokemon1 = self.deck1[0]
         else:
             pokemon1 = None
         if self.deck2:
-            pokemon2 = self.deck2[-1]
+            pokemon2 = self.deck2[0]
         else:
             pokemon2 = None
 
         return [pokemon1, pokemon2]
 
-    def getCardsLeft(self):
+    def getCardsLeft(self) -> list:
         # returns the number of cards in both decks, in a list
         n1 = len(self.deck1)
         n2 = len(self.deck2)
@@ -53,34 +52,79 @@ class Game:
     def removeTopCards(self):
         # deletes the top cards of both decks, if no cards were in a deck, do nothing
         if self.deck1:
-            self.deck1.pop()
+            del self.deck1[0]
         if self.deck2:
-            self.deck2.pop()
+            del self.deck2[0]
 
-    def usersTurn(self):
+    def usersTurn(self) -> bool:
         return self.usersTurn
 
+    def switchTurns(self):
+        self.usersTurn = not self.usersTurn
+
     def availableAttacks(self):
-        pokemon = self.deck1[-1]
+        pokemon = self.deck1[0]
         output = [pokemon.type1, pokemon.type2]
         return output
 
     def AiPickAttack(self):
-        pokemon = self.deck1[-1]
+        pokemon = self.deck1[0]
         output = random.choice([pokemon.type1, pokemon.type2])
         return output
 
-    def userAttacks(self, attacktype):
-        #deck1[-1]
+    def AiAttacks(self, attackType) -> bool:
+        didKO = self.dealDamage(self.deck2[0], self.deck1[0], attackType)
+
+        if didKO:
+            self.winCard(False)
+        else:
+            self.switchTurns()
+
+        return self.checkForWinner() == 2
+
+    def userAttacks(self, attackType) -> bool:
+        didKO = self.dealDamage(self.deck1[0], self.deck2[0], attackType)
+
+        if didKO:
+            self.winCard(True)
+        else:
+            self.switchTurns()
+
+        return self.checkForWinner() == 1
+
+    def dealDamage(self, attacker, defender, attackType):
+        attackValue = attacker.attack
+        defenderValue = defender.defense
+        # type multiplyer happens here
+        return attackValue > defenderValue
+
+    def winCard(self, userWon):
+        if userWon:
+            self.deck1.append(self.deck2[0])
+            del self.deck2[0]
+        else:
+            self.deck2.append(self.deck1[0])
+            del self.deck1[0]
+
+    def checkForWinner(self) -> int:
+        if not self.deck1:
+            self.winner = "Player 2"
+            return 2
+        elif not self.deck2:
+            self.winner = "Player 1"
+            return 1
+        else:
+            return 0
+
 
 if __name__ == "__main__":
     g = Game()
     g.getNewDecks()
 
-    topcards = g.getTopCards()
-    print(topcards[0].name)
-
+    topcard1 = g.getTopCards()[0]
     g.removeTopCards()
-
-    topcards = g.getTopCards()
-    print(topcards[0].name)
+    topcard2 = g.getTopCards()[0]
+    assert topcard1 != topcard2
+    topcard1 = g.deck1[0]
+    g.winCard(False)
+    assert topcard1 == g.deck2[-1]

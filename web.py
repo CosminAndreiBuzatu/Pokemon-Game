@@ -9,9 +9,11 @@ from pokemon import Pokemon
 app = Flask(__name__)
 pokemonGame = Game()
 
+
 @app.route("/temp")
 def index():
     return render_template('mainPage.html')
+
 
 @app.route("/")
 def mainPage():
@@ -50,30 +52,44 @@ def downloadPokemon():
 
     return render_template('Pokedex.html', pokemon=pokemon, names=names)
 
+
 @app.route("/cardGameNew")
 def cardGameNew():
     pokemonGame.getNewDecks()
-    cards = pokemonGame.getTopCards()
-    cardsLeft = pokemonGame.getCardsLeft()
 
-    return render_template('cardGame.html', cards=cards, cardsLeft=cardsLeft)
+    return render_template('cardGame.html', game=pokemonGame)
+
 
 @app.route("/cardGameNextTurn")
-def cardfGameNextTurn():
+def cardGameNextTurn():
     pokemonGame.removeTopCards()
-    cards = pokemonGame.getTopCards()
-    cardsLeft = pokemonGame.getCardsLeft()
 
-    return render_template('cardGame.html', cards=cards, cardsLeft=cardsLeft)
+    return render_template('cardGame.html', game=pokemonGame)
+
+
+@app.route("/cardGameUserAttacked")
+def cardGameUserAttacked():
+    attackType = request.args.get("attackType")
+    pokemonGame.userAttacks(attackType)
+
+    return render_template('cardGame.html', game=pokemonGame)
+
+
+@app.route("/cardGameAiAttacked")
+def cardGameAiAttacked():
+    attackType = pokemonGame.AiPickAttack()
+    pokemonGame.AiAttacks(attackType)
+
+    return render_template('cardGame.html', game=pokemonGame)
+
 
 @app.route("/cardGameDownload")
 def cardGameDownload():
     db = PokemonDatabase()
     db.downloadPokemon()
     pokemonGame = Game()
-    cards = pokemonGame.getTopCards()
-    cardsLeft = pokemonGame.getCardsLeft()
 
-    return render_template('cardGame.html', cards=cards, cardsLeft=cardsLeft)
+    return render_template('mainPage.html', game=pokemonGame)
+
 
 app.run()
