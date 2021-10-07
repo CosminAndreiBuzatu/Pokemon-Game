@@ -2,51 +2,103 @@
 {% block title %}Home page{% endblock %}
 {% block content %}
 <h1>Card Game</h1>
+{% if game.usersTurn %}
+<h2>Your turn!</h2>
+{% else %}
+<h2>Opponents Turn!</h2>
+{% endif %}
 
 <div class="cardDisplay">
   <div>
+    {% if game.checkForWinner() == 2 %}
   <div class="pokecard">
   <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
   <div class="pokemonDetails">
-  <p class="namePokemon">{{cards[0].name}}</p>
-  <img class="pokemonImage" src={{cards[0].artwork}} alt="Logo">
+  <p class="namePokemon">You Lose!</p>
+  <img class="pokemonImage" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Logo">
   </div>
-  <p class="details">Attack: {{cards[0].attack}}</p>
-    <p class="details">Defense: {{cards[0].defense}}</p>
-    <p class="details">Type: {{pokemon.types}}</p>
+  <p class="details"> </p>
+    <p class="details"> </p>
+    <p class="details"> </p>
   </div>
     <br>
     <br>
-    <h2>Cards Left: {{cardsLeft[0]}}</h2>
+    <h2>Cards Left: 0 </h2>
+    {% else %}
+  <div class="pokecard">
+  <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
+  <div class="pokemonDetails">
+  <p class="namePokemon">{{game.getTopCards()[0].name}}</p>
+  <img class="pokemonImage" src={{game.getTopCards()[0].artwork}} alt="Logo">
+  </div>
+  <p class="details">Attack: {{game.getTopCards()[0].attack}}</p>
+    <p class="details">Defense: {{game.getTopCards()[0].defense}}</p>
+    <p class="details">Type: {{game.getTopCards()[0].type1}} {{game.getTopCards()[0].type2}}</p>
+  </div>
+    <br>
+    <br>
+    <h2>Cards Left: {{game.getCardsLeft()[0]}}</h2>
+    {% endif %}
   </div>
 
   <div>
+    {% if game.checkForWinner() == 1 %}
   <div class="pokecard">
   <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
   <div class="pokemonDetails">
-  <p class="namePokemon">{{cards[1].name}}</p>
-  <img class="pokemonImage" src={{cards[1].artwork}} alt="Logo">
+  <p class="namePokemon">Opponent Loses!}</p>
+  <img class="pokemonImage" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Logo">
   </div>
-  <p class="details">Attack: {{cards[1].attack}}</p>
-    <p class="details">Defense: {{cards[1].defense}}</p>
-    <p class="details">Type: {{pokemon.types}}</p>
+  <p class="details"> </p>
+    <p class="details"> </p>
+    <p class="details"> </p>
   </div>
     <br>
     <br>
-    <h2>Cards Left: {{cardsLeft[1]}}</h2>
+    <h2>Cards Left: 0 </h2>
+    {% else %}
+  <div class="pokecard">
+  <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
+  <div class="pokemonDetails">
+  <p class="namePokemon">{{game.getTopCards()[1].name}}</p>
+  <img class="pokemonImage" src={{game.getTopCards()[1].artwork}} alt="Logo">
+  </div>
+  <p class="details">Attack: {{game.getTopCards()[1].attack}}</p>
+    <p class="details">Defense: {{game.getTopCards()[1].defense}}</p>
+    <p class="details">Type: {{game.getTopCards()[1].type1}} {{game.getTopCards()[1].type2}}</p>
+  </div>
+    <br>
+    <br>
+    <h2>Cards Left: {{game.getCardsLeft()[1]}}</h2>
+    {% endif %}
   </div>
 </div>
 <br>
+
+
 <div class="buttonDisplay">
-<form id="downloadPokemon" action="/cardNewGame" method="get">
+<form id="downloadPokemon" action="/cardGameNew" method="get">
   <button class="submit" type="submit" value="/newGame" >New Game</button>
 </form>
-<form id="Next Turn" action="/cardGameNextTurn" method="get">
-  <button class="submit" type="submit" value="/nextTurn" >Next Turn</button>
+{% if game.checkForWinner() == 0 %}
+{% if game.usersTurn %}
+<form id="userAttack" action="/cardGameUserAttacked" method="get">
+  <div class="attackButtons">
+  {% for attack in game.availableAttacks()%}
+  <button class="submitAttack" type="submit" name="attackType" value={{attack}} >{{attack}}</button>
+  {% endfor %}
+  </div>
 </form>
+{% else %}
+<form id="AiAttacks" action="/cardGameAiAttacked" method="get">
+  <button class="submit" type="submit" value="/nextTurn" >Defend</button>
+</form>
+{% endif %}
+{% endif %}
 <form id="New Game" action="/cardGameDownload" method="get">
   <button class="submit" type="submit" value="/downloadPokemon" >Download Data</button>
 </form>
 </div>
+
 </div>
 {% endblock %}
