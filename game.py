@@ -1,5 +1,13 @@
 # game class is responsible for holding and processing data concerning the game
 # this is to be used in web where user interacts with it
+# Todo
+# - Handle the event when the user has chosen an attack type and clicks 'Attack'
+# - Handle the event when the user has chosen 'Continue' for the AI to attack
+# - Compare the attack of the attacker with the defense of the defender, modifying the attack value based on the attacker/defender types.
+# - If the attacker wins, they get the defender’s card and continue attacking the following round.
+# - If the defender wins, they get the attacker’s card and also become the attacker for the following round.
+# - Once a player runs out of cards completely the game is over
+
 import random
 from pokemon import Pokemon
 from pokemonDatabase import PokemonDatabase
@@ -7,6 +15,7 @@ from pokemonDatabase import PokemonDatabase
 
 class Game:
     def __init__(self):
+        self.usersTurn = random.choice([True, False])
         self.deck1 = []
         self.deck2 = []
 
@@ -48,6 +57,21 @@ class Game:
         if self.deck2:
             self.deck2.pop()
 
+    def usersTurn(self):
+        return self.usersTurn
+
+    def availableAttacks(self):
+        pokemon = self.deck1[-1]
+        output = [pokemon.type1, pokemon.type2]
+        return output
+
+    def AiPickAttack(self):
+        pokemon = self.deck1[-1]
+        output = random.choice([pokemon.type1, pokemon.type2])
+        return output
+
+    def userAttacks(self, attacktype):
+        #deck1[-1]
 
 if __name__ == "__main__":
     g = Game()
