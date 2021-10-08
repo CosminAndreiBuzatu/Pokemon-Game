@@ -3,7 +3,6 @@ import sqlite3
 from pokemon import Pokemon
 from fetchApi import *
 
-pokemonApiObject = PokemonAPI()
 
 class PokemonDatabase:
 
