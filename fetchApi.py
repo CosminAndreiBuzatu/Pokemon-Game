@@ -78,3 +78,11 @@ def fetchTypes(number):
     }
 
     return Types(input_dict)
+
+
+def fetchAllTypes(start, end):
+    allTypes = []
+    for number in range(start, end + 1):
+        types = fetchTypes(number)
+        allTypes.append(types)
+    return allTypes

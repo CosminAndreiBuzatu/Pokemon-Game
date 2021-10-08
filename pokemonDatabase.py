@@ -106,6 +106,41 @@ class PokemonDatabase:
         listOfPokemon = fetchManyPokemon(1, 151)
         self.addManyPokemon(listOfPokemon)
 
+
+    def createTypesTable(self):
+        # Create a SQL Table
+        sqlCommand = f'''
+            CREATE TABLE IF NOT EXISTS Types ( Name TEXT, DoubleDamage TEXT, HalfDamage TEXT, NoDamage TEXT, )
+        '''
+        self.cursor.execute(sqlCommand)
+        self.database.commit()
+
+    def addTypes(self, type):
+        values = [type.name, ' '.join(type.doubleDamage), ' '.join(type.halfDamage), ' '.join(type.noDamage)]
+        sqlCommand = f'''
+            INSERT INTO Types ( Name, DoubleDamage, HalfDamage, NoDamage ) 
+            VALUES ( ? , ? , ? , ? );
+        '''
+        self.cursor.execute(sqlCommand, values)
+        self.database.commit()
+
+
+    def addAllTypes(self, listOfTypes):
+        for type in listOfTypes:
+            self.addTypes(type)
+
+    def clearTypesTable(self):
+        sqlCommand = f'''
+            DELETE FROM Types
+        '''
+        self.cursor.execute(sqlCommand)
+        self.database.commit()
+
+    def downloadTypes(self):
+        self.clearTypesTable()
+        listOfPokemon = fetchAllTypes(1, 18)
+        self.addAllTypes(listOfPokemon)
+
 if __name__ == "__main__":
     db = PokemonDatabase()
     db.clearPokemonTable()
