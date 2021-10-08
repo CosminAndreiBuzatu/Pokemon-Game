@@ -3,6 +3,7 @@ import sqlite3
 from pokemon import Pokemon
 from fetchApi import *
 
+pokemonApiObject = PokemonAPI()
 
 class PokemonDatabase:
 
@@ -103,7 +104,7 @@ class PokemonDatabase:
 
     def downloadPokemon(self):
         self.clearPokemonTable()
-        listOfPokemon = fetchManyPokemon(1, 151)
+        listOfPokemon = pokemonApiObject.fetchManyPokemon(1, 151)
         self.addManyPokemon(listOfPokemon)
 
 if __name__ == "__main__":
