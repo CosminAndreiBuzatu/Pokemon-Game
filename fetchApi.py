@@ -79,3 +79,7 @@ class PokemonAPI():
         }
 
         return Types(input_dict)
+
+
+pokemonApiObject = PokemonAPI()
+
