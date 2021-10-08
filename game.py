@@ -72,7 +72,7 @@ class Game:
         return output
 
     def AiPickAttack(self):
-        pokemon = self.deck1[0]
+        pokemon = self.deck2[0]
         output = random.choice(pokemon.types)
         return output
 
