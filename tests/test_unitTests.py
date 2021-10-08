@@ -48,26 +48,26 @@ def test_gameReturnsNumberOfCardsInDeck():
     assert deckEndSize[0] == deckStartSize[0] - 1
 
 def test_fightingVsRock():
-    fighting = fetchTypes(2)
-    rock = fetchTypes(6)
+    fighting = pokemonApiObject.fetchTypes(2)
+    rock = pokemonApiObject.fetchTypes(6)
 
     fighting.showDamageMultiplier(rock.name)
 
     assert fighting.showDamageMultiplier(rock.name) == 2
 
 def test_fightingRockGrass():
-    fighting =fetchTypes(2)
-    rock = fetchTypes(6)
-    grass = fetchTypes(12)
+    fighting =pokemonApiObject.fetchTypes(2)
+    rock = pokemonApiObject.fetchTypes(6)
+    grass = pokemonApiObject.fetchTypes(12)
 
     defender = fighting.calculateDamageMultiplier([rock.name,grass.name])
 
     assert defender == 2
 
 def test_fightingRockFairy():
-    fighting =fetchTypes(2)
-    rock = fetchTypes(6)
-    fairy = fetchTypes(18)
+    fighting =pokemonApiObject.fetchTypes(2)
+    rock = pokemonApiObject.fetchTypes(6)
+    fairy = pokemonApiObject.fetchTypes(18)
 
     defender = fighting.calculateDamageMultiplier([rock.name,fairy.name])
 
@@ -75,10 +75,10 @@ def test_fightingRockFairy():
 
 
 def test_fightingVsRockFairyGhost():
-    fighting =fetchTypes(2)
-    rock = fetchTypes(6)
-    fairy = fetchTypes(18)
-    ghost = fetchTypes(8)
+    fighting =pokemonApiObject.fetchTypes(2)
+    rock = pokemonApiObject.fetchTypes(6)
+    fairy = pokemonApiObject.fetchTypes(18)
+    ghost = pokemonApiObject.fetchTypes(8)
 
     defender = fighting.calculateDamageMultiplier([rock.name,fairy.name,ghost.name])
 
@@ -86,7 +86,7 @@ def test_fightingVsRockFairyGhost():
 
 
 def test_fightingVsNone():
-    fighting =fetchTypes(2)
+    fighting =pokemonApiObject.fetchTypes(2)
 
     defender = fighting.calculateDamageMultiplier([])
 

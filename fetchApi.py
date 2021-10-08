@@ -4,7 +4,8 @@ import requests
 from pokemon import Pokemon
 from pokemonTypes import Types
 
-
+#create object and call all these functions on it
+class PokemonAPI():
 # Method to extract API data of one pokemon
 def fetchPokemon(number):
     try:
@@ -86,3 +87,7 @@ def fetchAllTypes(start, end):
         types = fetchTypes(number)
         allTypes.append(types)
     return allTypes
+
+
+pokemonApiObject = PokemonAPI()
+

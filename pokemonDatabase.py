@@ -103,7 +103,7 @@ class PokemonDatabase:
 
     def downloadPokemon(self):
         self.clearPokemonTable()
-        listOfPokemon = fetchManyPokemon(1, 151)
+        listOfPokemon = pokemonApiObject.fetchManyPokemon(1, 151)
         self.addManyPokemon(listOfPokemon)
 
 
