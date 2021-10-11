@@ -11,6 +11,7 @@ class PokemonDatabase:
             self.database = sqlite3.connect(f"gameDatabase.db")
             self.cursor = self.database.cursor()
             self.createPokemonTable()
+            self.createTypesTable()
         except Exception as e:
             print(e)
 
@@ -105,12 +106,13 @@ class PokemonDatabase:
         self.clearPokemonTable()
         listOfPokemon = pokemonApiObject.fetchManyPokemon(1, 151)
         self.addManyPokemon(listOfPokemon)
+        self.downloadTypes()
 
 
     def createTypesTable(self):
         # Create a SQL Table
         sqlCommand = f'''
-            CREATE TABLE IF NOT EXISTS Types ( Name TEXT, DoubleDamage TEXT, HalfDamage TEXT, NoDamage TEXT, )
+            CREATE TABLE IF NOT EXISTS Type ( Name TEXT, DoubleDamage TEXT, HalfDamage TEXT, NoDamage TEXT)
         '''
         self.cursor.execute(sqlCommand)
         self.database.commit()
@@ -118,11 +120,33 @@ class PokemonDatabase:
     def addTypes(self, type):
         values = [type.name, ' '.join(type.doubleDamage), ' '.join(type.halfDamage), ' '.join(type.noDamage)]
         sqlCommand = f'''
-            INSERT INTO Types ( Name, DoubleDamage, HalfDamage, NoDamage ) 
+            INSERT INTO Type ( Name, DoubleDamage, HalfDamage, NoDamage ) 
             VALUES ( ? , ? , ? , ? );
         '''
         self.cursor.execute(sqlCommand, values)
         self.database.commit()
+
+        return Types(dict)
+
+    def dBToType(self, row):
+        dict = {
+            "name": row[0],
+            "doubleDamage": row[1].split(),
+            "halfDamage": row[2].split(),
+            "noDamage": row[3].split()
+            }
+
+        return Types(dict)
+
+    def getType(self, name):
+        sqlCommand = f'''
+            SELECT * FROM Type
+            WHERE name = ?;
+        '''
+        self.cursor.execute(sqlCommand, [name])
+        type = self.cursor.fetchall()
+        return self.dBToType(type[0])
+
 
 
     def addAllTypes(self, listOfTypes):
@@ -131,19 +155,21 @@ class PokemonDatabase:
 
     def clearTypesTable(self):
         sqlCommand = f'''
-            DELETE FROM Types
+            DELETE FROM Type
         '''
         self.cursor.execute(sqlCommand)
         self.database.commit()
 
     def downloadTypes(self):
         self.clearTypesTable()
-        listOfPokemon = fetchAllTypes(1, 18)
-        self.addAllTypes(listOfPokemon)
+        listOfTypes = pokemonApiObject.fetchAllTypes(1, 18)
+        self.addAllTypes(listOfTypes)
 
 if __name__ == "__main__":
     db = PokemonDatabase()
     db.clearPokemonTable()
     db.downloadPokemon()
     listp = db.getAllPokemon()
+    print(db.getType('electric'))
     print(listp)
+
