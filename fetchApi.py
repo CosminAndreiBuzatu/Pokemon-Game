@@ -7,7 +7,8 @@ from pokemonTypes import Types
 #create object and call all these functions on it
 class PokemonAPI():
 # Method to extract API data of one pokemon
-    def fetchPokemon(number):
+
+    def fetchPokemon(self,number):
         try:
             r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{number}')
         except:
@@ -31,10 +32,10 @@ class PokemonAPI():
 
 
     # method to get a list of pokemon from start number ot end number e.g. 1 to 151
-    def fetchManyPokemon(start, end):
+    def fetchManyPokemon(self, start, end):
         listOfPokemon = []
         for number in range(start, end + 1):
-            pokemon = fetchPokemon(number)
+            pokemon = self.fetchPokemon(number)
             listOfPokemon.append(pokemon)
         return listOfPokemon
 
@@ -49,7 +50,7 @@ class PokemonAPI():
     # - Types
 
 
-    def fetchTypes(number):
+    def fetchTypes(self,number):
         try:
             r = requests.get(f'https://pokeapi.co/api/v2/type/{number}')
         except:
@@ -79,6 +80,14 @@ class PokemonAPI():
         }
 
         return Types(input_dict)
+
+
+    def fetchAllTypes(self,start, end):
+        allTypes = []
+        for number in range(start, end + 1):
+            types = self.fetchTypes(number)
+            allTypes.append(types)
+        return allTypes
 
 
 pokemonApiObject = PokemonAPI()

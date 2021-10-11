@@ -99,7 +99,8 @@ class Game:
     def dealDamage(self, attacker, defender, attackType):
         attackValue = attacker.attack
         defenderValue = defender.defense
-        attackTypeObj = fetchApi.pokemonApiObject.fetchTypes(constants.typeDict2[attackType])
+        db = PokemonDatabase()
+        attackTypeObj = db.getType(attackType)
         multiplyer = attackTypeObj.calculateDamageMultiplier(defender.types)
         attackValue *= multiplyer
         return attackValue > defenderValue
