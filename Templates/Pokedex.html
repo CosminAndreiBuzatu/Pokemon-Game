@@ -2,23 +2,23 @@
 {% block title %}Home page{% endblock %}
 {% block content %}
 
-
 <h1>Pokedex</h1>
 
-<div class="evenSpace">
-  <div class="dropdown">
+<div class="evenly">
+  <div class="padded">
     <div class="divScroll">
       {% for name in names %}
-    <p><a type="button" onclick="loadCard('{{name}}')">{{name}}</a></p>
+      <p><a type="button" onclick="loadCard('{{name}}')">{{name}}</a></p>
       {% endfor %}
     </div>
+    <form id="downloadPokemon" action="/downloadPokemon" method="get">
+      <button class="submit" type="submit" value="/downloadPokemon" >Download Data</button>
+    </form>
   </div>
-  <form id="downloadPokemon" action="/downloadPokemon" method="get">
-    <button class="submit" type="submit" value="/downloadPokemon" >Download Data</button>
-  </form>
-
   <script>  loadCard("{{pokemon.name}}")</script>
-  <div id="pokemonCard" ></div>
+  <div class="padded">
+    <div id="pokemonCard" ></div>
+  </div>
 </div>
 
 {% endblock %}
