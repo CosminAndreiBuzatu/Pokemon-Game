@@ -7,6 +7,7 @@ bulbasaur_dict = {
         "attack": 40,
         "defense": 40,
         "types": ["grass", "poison"]
+}
 
 noPokemonDict = {
         "name": "Press Download Data",
