@@ -1,7 +1,10 @@
 # database class/functions. create and use a SQL database
 import sqlite3
+
+import constants
 from pokemon import Pokemon
 from fetchApi import *
+
 
 
 class PokemonDatabase:
@@ -12,6 +15,8 @@ class PokemonDatabase:
             self.cursor = self.database.cursor()
             self.createPokemonTable()
             self.createTypesTable()
+            self.addDummyDataTypes(constants.types_dict)
+            self.addDummyDataPokemon(constants.bulbasaur_dict)
         except Exception as e:
             print(e)
 
@@ -24,6 +29,25 @@ class PokemonDatabase:
             CREATE TABLE IF NOT EXISTS Pokemon ( Name TEXT, Artwork TEXT, Attack INT, Defence INT, Types TEXT )
         '''
         self.cursor.execute(sqlCommand)
+        self.database.commit()
+
+    def addDummyDataTypes(self, dummy):
+        fix = [dummy["name"],dummy["doubleDamage"], dummy["halfDamage"],dummy["noDamage"]]
+        sqlCommand = f'''
+            INSERT INTO Type ( Name, DoubleDamage, HalfDamage, NoDamage ) 
+            VALUES ( ? , ? , ? , ? );
+        '''
+        self.cursor.execute(sqlCommand, fix)
+        self.database.commit()
+
+    def addDummyDataPokemon(self,dummy):
+        fix = [dummy["name"], dummy['artwork'],
+             dummy['attack'], dummy['defence'], dummy['types']]
+        sqlCommand = f'''
+            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Types ) 
+            VALUES ( ? , ? , ? , ? , ? );
+        '''
+        self.cursor.execute(sqlCommand,fix)
         self.database.commit()
 
     def clearPokemonTable(self):
