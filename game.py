@@ -60,6 +60,9 @@ class Game:
         if self.deck2:
             del self.deck2[0]
 
+    def randomiseTurn(self):
+        self.usersTurn = random.choice([True, False])
+
     def usersTurn(self) -> bool:
         return self.usersTurn
 

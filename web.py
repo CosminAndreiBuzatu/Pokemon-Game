@@ -10,11 +10,6 @@ app = Flask(__name__)
 pokemonGame = Game()
 
 
-@app.route("/temp")
-def index():
-    return render_template('mainPage.html')
-
-
 @app.route("/")
 def mainPage():
     return render_template('mainPage.html')
@@ -42,12 +37,22 @@ def card():
     db = PokemonDatabase()
     names = db.getAllNames()
     inputName = request.args.get("name")
-    print(f"---{inputName}---")
+    inputPlayer = request.args.get("player")
+
     if inputName is not None:
-        pokemon = db.getPokemon(inputName)
-    elif names:
-        inputName = names[0]
-        pokemon = db.getPokemon(inputName)
+        print(f"---{inputName}---")
+        if inputName in names:
+            pokemon = db.getPokemon(inputName)
+        elif names:
+            inputName = names[0]
+            pokemon = db.getPokemon(inputName)
+        else:
+            pokemon = Pokemon(bulbasaur_dict)
+            pokemon.name = "Empty database"
+    elif inputPlayer == 1:
+        pokemon = pokemonGame.deck1[0]
+    elif inputPlayer == 2:
+        pokemon = pokemonGame.deck2[0]
     else:
         pokemon = Pokemon(bulbasaur_dict)
         pokemon.name = "Empty database"
@@ -74,8 +79,14 @@ def downloadPokemon():
 @app.route("/cardGameNew")
 def cardGameNew():
     pokemonGame.getNewDecks()
+    pokemonGame.randomiseTurn()
 
     return render_template('cardGame.html', game=pokemonGame)
+
+
+@app.route("/selectMove")
+def selectMove():
+    return render_template('selectMove.html', game=pokemonGame)
 
 
 @app.route("/cardGameNextTurn")
@@ -85,20 +96,22 @@ def cardGameNextTurn():
     return render_template('cardGame.html', game=pokemonGame)
 
 
-@app.route("/cardGameUserAttacked")
+@app.route("/userAttacks")
 def cardGameUserAttacked():
     attackType = request.args.get("attackType")
     pokemonGame.userAttacks(attackType)
+    print(f"User uses {attackType}")
 
-    return render_template('cardGame.html', game=pokemonGame)
+    return "nothing"
 
 
-@app.route("/cardGameAiAttacked")
+@app.route("/AiAttacks")
 def cardGameAiAttacked():
     attackType = pokemonGame.AiPickAttack()
     pokemonGame.AiAttacks(attackType)
+    print("Ai has attacked")
 
-    return render_template('cardGame.html', game=pokemonGame)
+    return "nothing"
 
 
 @app.route("/cardGameDownload")
@@ -108,6 +121,12 @@ def cardGameDownload():
     pokemonGame = Game()
 
     return render_template('mainPage.html', game=pokemonGame)
+
+# background process happening without any refreshing
+@app.route('/background_process_test')
+def background_process_test():
+    print("Hello")
+    return "nothing"
 
 
 app.run()
