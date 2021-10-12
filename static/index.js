@@ -63,7 +63,7 @@ function reloadCards(response){
     loadCardsLeft2()
     loadSelectMove()
     if (response.win){
-        cardOpacity1("0.25")
+        cardOpacity1("1.0")
         cardOpacity2("0.25")
     }
 }
@@ -99,6 +99,7 @@ function userAttacks(inputVal) {
       data: { },
       success: function(response) {
         cardOpacity1("1.0")
+        cardOpacity2("1.0")
         setTimeout(function(){reloadCards(response); }, 1000);
       },
       error: function(err) {}
