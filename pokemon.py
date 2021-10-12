@@ -17,3 +17,12 @@ class Pokemon:
     def getTypes(self):
         typesString = " ".join(self.types)
         return typesString
+
+    def toJson(self):
+        output = {
+            "name": self.name,
+            "artwork": self.artwork,
+            "attack": self.attack,
+            "defense": self.defense,
+            "types": self.getTypes()
+        }
