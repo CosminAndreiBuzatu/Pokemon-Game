@@ -1,5 +1,6 @@
 from game import Game
 from fetchApi import *
+from pokemonDatabase import *
 
 def test_gameCanMakeEvenDecks():
     game = Game()
@@ -92,3 +93,47 @@ def test_fightingVsNone():
 
     assert defender == 1
 
+def test_dragonairBeatsVenomoth():
+    db = PokemonDatabase()
+    pokemonA = db.getPokemon('dragonair')
+    pokemonD = db.getPokemon('venomoth')
+    attackType = 'dragon'
+    Winner = Game().dealDamage(pokemonA,pokemonD,attackType)
+
+    assert Winner == True
+
+def test_blastoiseBeatsRhydon():
+    db = PokemonDatabase()
+    pokemonA = db.getPokemon('blastoise')
+    pokemonD = db.getPokemon('rhydon')
+    attackType = 'water'
+    Winner = Game().dealDamage(pokemonA,pokemonD,attackType)
+
+    assert Winner == True
+
+def test_gastlyBeatsMachoke():
+    db = PokemonDatabase()
+    pokemonA = db.getPokemon('machoke')
+    pokemonD = db.getPokemon('gastly')
+    attackType = 'fighting'
+    Winner = Game().dealDamage(pokemonA,pokemonD,attackType)
+
+    assert Winner == False
+
+def test_haunterBeatsArbok():
+    db = PokemonDatabase()
+    pokemonA = db.getPokemon('arbok')
+    pokemonD = db.getPokemon('haunter')
+    attackType = 'poison'
+    Winner = Game().dealDamage(pokemonA,pokemonD,attackType)
+
+    assert Winner == False
+
+def test_gyaradosBeatsTentacool():
+    db = PokemonDatabase()
+    pokemonA = db.getPokemon('gyarados')
+    pokemonD = db.getPokemon('tentacool')
+    attackType = 'water'
+    Winner = Game().dealDamage(pokemonA,pokemonD,attackType)
+
+    assert Winner == True
