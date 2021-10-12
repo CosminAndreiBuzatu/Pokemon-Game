@@ -97,25 +97,27 @@ def cardsLeft():
 
 
 @app.route("/userAttacks")
-def cardGameUserAttacked():
+def userAttacks():
     attackType = request.args.get("attackType")
-    pokemonGame.userAttacks(attackType)
+    win = pokemonGame.userAttacks(attackType)
     print(f"User uses {attackType}")
     output = {
         "name1": pokemonGame.deck1[0].name,
-        "name2": pokemonGame.deck2[0].name
+        "name2": pokemonGame.deck2[0].name,
+        "win": win
     }
     return output
 
 
 @app.route("/AiAttacks")
-def cardGameAiAttacked():
+def AiAttacks():
     attackType = pokemonGame.AiPickAttack()
-    pokemonGame.AiAttacks(attackType)
+    win = pokemonGame.AiAttacks(attackType)
     print("Ai has attacked")
     output = {
         "name1": pokemonGame.deck1[0].name,
-        "name2": pokemonGame.deck2[0].name
+        "name2": pokemonGame.deck2[0].name,
+        "win": win
     }
     return output
 

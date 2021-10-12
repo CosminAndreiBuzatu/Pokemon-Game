@@ -5,7 +5,7 @@ bulbasaur_dict = {
         "artwork": "url",
         "attack": 40,
         "defense": 40,
-        "types": ["Grass", "Poison"]
+        "types": ["grass", "poison"]
     }
 
 typeDict = {

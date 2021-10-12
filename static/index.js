@@ -46,11 +46,27 @@ function loadCardsLeft2() {
   });
 }
 
+function cardOpacity1(inputVal){
+    var element = document.getElementById("pokemonCard");
+    element.style.opacity = inputVal;
+}
+
+function cardOpacity2(inputVal){
+    var element = document.getElementById("pokemonCard2");
+    element.style.opacity = inputVal;
+}
+
 function reloadCards(response){
     loadCard(response.name1)
     loadCard2(response.name2)
     loadCardsLeft1()
     loadCardsLeft2()
+    loadSelectMove()
+    alert(response.win)
+    if (response.win){
+        cardOpacity1("0.25")
+        cardOpacity2("0.25")
+    }
 }
 
 function loadCardGameDisplay(){
@@ -63,10 +79,6 @@ function loadCardGameDisplay(){
       },
       error: function(err) {}
   });
-}
-
-function refreshCards(){
-    $("#content").load( "ajax/test.html" );
 }
 
 function loadSelectMove() {
@@ -87,6 +99,7 @@ function userAttacks(inputVal) {
       type: "get",
       data: { },
       success: function(response) {
+        cardOpacity1("1.0")
         reloadCards(response)
       },
       error: function(err) {}
@@ -99,6 +112,7 @@ function AiAttacks() {
       type: "get",
       data: { },
       success: function(response) {
+        cardOpacity2("1.0")
         reloadCards(response)
       },
       error: function(err) {}

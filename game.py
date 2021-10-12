@@ -84,20 +84,26 @@ class Game:
 
         if didKO:
             self.winCard(False)
+            roundWin = True
         else:
             self.switchTurns()
+            roundWin = False
 
-        return self.checkForWinner() == 2
+        return roundWin
+        # return self.checkForWinner() == 2
 
     def userAttacks(self, attackType) -> bool:
         didKO = self.dealDamage(self.deck1[0], self.deck2[0], attackType)
 
         if didKO:
             self.winCard(True)
+            roundWin = True
         else:
             self.switchTurns()
+            roundWin = False
 
-        return self.checkForWinner() == 1
+        return roundWin
+        # return self.checkForWinner() == 1
 
     def dealDamage(self, attacker, defender, attackType):
         attackValue = attacker.attack
