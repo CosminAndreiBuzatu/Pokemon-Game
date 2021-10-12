@@ -60,6 +60,9 @@ class Game:
         if self.deck2:
             del self.deck2[0]
 
+    def randomiseTurn(self):
+        self.usersTurn = random.choice([True, False])
+
     def usersTurn(self) -> bool:
         return self.usersTurn
 
@@ -72,7 +75,7 @@ class Game:
         return output
 
     def AiPickAttack(self):
-        pokemon = self.deck1[0]
+        pokemon = self.deck2[0]
         output = random.choice(pokemon.types)
         return output
 
@@ -81,25 +84,32 @@ class Game:
 
         if didKO:
             self.winCard(False)
+            roundWin = True
         else:
             self.switchTurns()
+            roundWin = False
 
-        return self.checkForWinner() == 2
+        return roundWin
+        # return self.checkForWinner() == 2
 
     def userAttacks(self, attackType) -> bool:
         didKO = self.dealDamage(self.deck1[0], self.deck2[0], attackType)
 
         if didKO:
             self.winCard(True)
+            roundWin = True
         else:
             self.switchTurns()
+            roundWin = False
 
-        return self.checkForWinner() == 1
+        return roundWin
+        # return self.checkForWinner() == 1
 
     def dealDamage(self, attacker, defender, attackType):
         attackValue = attacker.attack
         defenderValue = defender.defense
-        attackTypeObj = fetchApi.fetchTypes(constants.typeDict2[attackType])
+        db = PokemonDatabase()
+        attackTypeObj = db.getType(attackType)
         multiplyer = attackTypeObj.calculateDamageMultiplier(defender.types)
         attackValue *= multiplyer
         return attackValue > defenderValue
@@ -108,9 +118,15 @@ class Game:
         if userWon:
             self.deck1.append(self.deck2[0])
             del self.deck2[0]
+            self.takeCardToEnd(self.deck1)
         else:
             self.deck2.append(self.deck1[0])
             del self.deck1[0]
+            self.takeCardToEnd(self.deck2)
+
+    def takeCardToEnd(self,deck):
+        removeCard = deck.pop(0)
+        deck.append(removeCard)
 
     def checkForWinner(self) -> int:
         if not self.deck1:

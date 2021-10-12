@@ -4,6 +4,7 @@
     <title>{% block title %}Pokemon Game{% endblock %}</title>
     <link rel="stylesheet" type="text/css"
           href="{{ url_for('static', filename='bootstrap.min.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='index.js') }}"></script>
 </head>
 <body>
@@ -11,6 +12,18 @@
     {% block content %}{% endblock %}
 </div>
 <style>
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-item: center;
+    height: 1000px;
+    background-color: red;
+    background-image: linear-gradient(to bottom right, red, yellow);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 h1 {
   display: block;
   text-align:center;
@@ -31,11 +44,13 @@ h2 {
   margin-right: 0;
   font-weight: bold;
 }
+
 .namePokemon {
 font-size:30px;
 text-align:center;
 color:white;
 }
+
 .details {
 font-size:15px;
 margin-left:5%;
@@ -74,7 +89,7 @@ color:white;
 }
 
 .dropdown {
-  position: absolute;
+  position: relative;
   display: inline-block;
   top:80%;
   left: 10%;
@@ -84,14 +99,8 @@ color:white;
   background-color: black;
   border-radius: 5px;
   color: white;
-  padding: 16px;
   font-size: 16px;
-  border: none;
   cursor: pointer;
-  position: absolute;
-  display: inline-block;
-  top:auto;
-  left:auto;
 }
 .submitAttack {
   background-color: black;
@@ -115,32 +124,6 @@ color:white;
   left: auto;
   background-image: url("https://live.staticflickr.com/2512/3945669085_3acdd36bf0_n.jpg");
   border-radius: 25px;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content p {
-  color: black;
-  padding: 1px 40px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
 }
 
 .cardDisplay{
@@ -170,6 +153,43 @@ color:white;
   width: 80%;
 }
 
+.divScroll
+{
+  position: relative
+  width: 300px;
+  height: 500px;
+  line-height: auto;
+  overflow:scroll;
+  border: thin #000 solid;
+  padding: 5px;
+  background-color: #F0F0F0;
+}
+.evenly {
+  display:flex;
+  align-content: stretch;
+  justify-content: space-around;
+  text-align: justify;
+}
+.stretch {
+  width: 100%;
+  display: inline-block;
+  font-size: 0;
+  line-height: 0
+}
+
+.padded {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.userCard{
+    opacity: 1.0
+}
+
+.AiCard{
+    opacity: 0.25
+}
+  
 </style>
 </body>
 </html>

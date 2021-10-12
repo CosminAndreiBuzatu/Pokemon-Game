@@ -1,0 +1,16 @@
+{% if game.checkForWinner() == 0 %}
+{% if game.usersTurn %}
+<form>
+  <div class="attackButtons">
+  {% for attack in game.availableAttacks()%}
+  <a><button class='btn btn-default' onclick="userAttacks('{{attack}}'); return false">{{attack}}</button></a>
+  {% endfor %}
+  </div>
+</form>
+{% else %}
+<form>
+  <a href="#" id="buttonid"><button class='btn btn-default' onclick="AiAttacks(); return false">Defend</button></a>
+</form>
+
+{% endif %}
+{% endif %}

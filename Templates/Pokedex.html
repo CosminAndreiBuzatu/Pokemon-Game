@@ -1,146 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-h1 {
-  display: block;
-  text-align:center;
-  font-size: 2em;
-  margin-top: 0.67em;
-  margin-bottom: 0.67em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-.namePokemon {
-font-size:30px;
-text-align:center;
-color:white;
-}
-.details {
-font-size:15px;
-margin-left:5%;
-color:white;
-
-}
-.dropbtn {
-  background-color: black;
-  border-radius: 5px;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.Logo {
-    max-width: 75%;
-    max-height: 75%;
-    display: block;
-    margin-top:5px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.pokemonImage {
-    width: 55%;
-    height: 55%;
-    display: block;
-    position:relative;
-    top:auto;
-    left:auto;
-    margin-left: auto;
-    margin-right: auto;
-    position-colon:fixed;
-}
-
-.dropdown {
-  position: absolute;
-  display: inline-block;
-  top:80%;
-  left: 10%;
-}
-
-.submit {
-  background-color: black;
-  border-radius: 5px;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  display: inline-block;
-  top:80%;
-  left:80%;
-}
-
-.pokecard {
-  position: absolute;
-  display: inline-block;
-  height: 500px;
-  width: 300px;
-  top:20%;
-  left: 40%;
-  background-image: url("https://live.staticflickr.com/2512/3945669085_3acdd36bf0_n.jpg");
-  border-radius: 25px;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content p {
-  color: black;
-  padding: 1px 40px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-}
-</style>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block title %}Home page{% endblock %}
+{% block content %}
 
 <h1>Pokedex</h1>
-<div class="pokecard">
-<img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
-<div class="pokemonDetails">
-<p class="namePokemon">{{pokemon.name}}</p>
-<img class="pokemonImage" src={{pokemon.artwork}} alt="Logo">
-</div>
-<p class="details">Attack: {{pokemon.attack}}</p>
-  <p class="details">Defense: {{pokemon.defense}}</p>
-  <p class="details">Type: {{pokemon.getTypes()}}</p>
 
-</div>
-<form id="downloadPokemon" action="/downloadPokemon" method="get">
-  <button class="submit" type="submit" value="/downloadPokemon" >Download Data</button>
-</form>
-<div class="dropdown">
-  <button class="dropbtn">Select Pokemon</button>
-  <div class="dropdown-content">
-    {% for name in names %}
-  <p><a type="button" href="/pokedex?name={{name}}">{{name}}</a></p>
-    {% endfor %}
+<div class="evenly">
+  <div class="padded">
+    <div class="divScroll">
+      {% for name in names %}
+      <p><a type="button" onclick="loadCard('{{name}}')">{{name}}</a></p>
+      {% endfor %}
+    </div>
+    <form id="downloadPokemon" action="/downloadPokemon" method="get">
+      <button class="submit" type="submit" value="/downloadPokemon" >Download Data</button>
+    </form>
+  </div>
+  <script>  loadCard("{{pokemon.name}}")</script>
+  <div class="padded">
+    <div id="pokemonCard" ></div>
   </div>
 </div>
 
-
-</body>
-</html>
-
-
+{% endblock %}
