@@ -1,0 +1,40 @@
+  <div class="cardDisplay">
+
+    <div class="padded" style="height: 650px;">
+    {% if game.usersTurn %}
+    <h2>Your turn!</h2>
+    {% else %}
+    <h2> * </h2>
+    {% endif %}
+
+      {% if game.checkForWinner() == 2 %}
+    <script>  loadCard("loose")</script>
+      {% else %}
+    <script>  loadCard("{{game.getTopCards()[0].name}}")</script>
+      {% endif %}
+      <div id="pokemonCard" ></div>
+      <br>
+      <br>
+      <script> loadCardsLeft1() </script>
+      <div id="cardsLeft1"></div>
+    </div>
+
+    <div class="padded">
+    {% if game.usersTurn %}
+    <h2> * </h2>
+    {% else %}
+    <h2>Opponents Turn!</h2>
+    {% endif %}
+
+      {% if game.checkForWinner() == 1 %}
+    <script>  loadCard2("loose")</script>
+      {% else %}
+    <script>  loadCard2("{{game.getTopCards()[1].name}}")</script>
+      {% endif %}
+      <div id="pokemonCard2" ></div>
+      <br>
+      <br>
+      <script> loadCardsLeft2() </script>
+      <div id="cardsLeft2"></div>
+    </div>
+  </div>

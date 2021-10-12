@@ -37,7 +37,6 @@ def card():
     db = PokemonDatabase()
     names = db.getAllNames()
     inputName = request.args.get("name")
-    inputPlayer = request.args.get("player")
 
     if inputName is not None:
         print(f"---{inputName}---")
@@ -49,10 +48,6 @@ def card():
         else:
             pokemon = Pokemon(bulbasaur_dict)
             pokemon.name = "Empty database"
-    elif inputPlayer == 1:
-        pokemon = pokemonGame.deck1[0]
-    elif inputPlayer == 2:
-        pokemon = pokemonGame.deck2[0]
     else:
         pokemon = Pokemon(bulbasaur_dict)
         pokemon.name = "Empty database"
@@ -89,11 +84,16 @@ def selectMove():
     return render_template('selectMove.html', game=pokemonGame)
 
 
-@app.route("/cardGameNextTurn")
-def cardGameNextTurn():
-    pokemonGame.removeTopCards()
+@app.route("/cardGameDisplay")
+def cardGameDisplay():
+    return render_template('cardGameDisplay.html', game=pokemonGame)
 
-    return render_template('cardGame.html', game=pokemonGame)
+
+@app.route("/cardsLeft")
+def cardsLeft():
+    player = request.args.get("player")
+    player = int(player)
+    return render_template('cardsLeft.html', game=pokemonGame, player=player)
 
 
 @app.route("/userAttacks")
@@ -101,8 +101,11 @@ def cardGameUserAttacked():
     attackType = request.args.get("attackType")
     pokemonGame.userAttacks(attackType)
     print(f"User uses {attackType}")
-
-    return "nothing"
+    output = {
+        "name1": pokemonGame.deck1[0].name,
+        "name2": pokemonGame.deck2[0].name
+    }
+    return output
 
 
 @app.route("/AiAttacks")
@@ -110,8 +113,11 @@ def cardGameAiAttacked():
     attackType = pokemonGame.AiPickAttack()
     pokemonGame.AiAttacks(attackType)
     print("Ai has attacked")
-
-    return "nothing"
+    output = {
+        "name1": pokemonGame.deck1[0].name,
+        "name2": pokemonGame.deck2[0].name
+    }
+    return output
 
 
 @app.route("/cardGameDownload")
@@ -121,12 +127,6 @@ def cardGameDownload():
     pokemonGame = Game()
 
     return render_template('mainPage.html', game=pokemonGame)
-
-# background process happening without any refreshing
-@app.route('/background_process_test')
-def background_process_test():
-    print("Hello")
-    return "nothing"
 
 
 app.run()

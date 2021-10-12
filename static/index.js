@@ -22,23 +22,44 @@ function loadCard2(pokemonName) {
   });
 }
 
-function reloadCards() {
-  alert("Reload Cards")
+function loadCardsLeft1() {
   $.ajax({
-      url: "/card?player=1",
+      url: "/cardsLeft?player=0",
       type: "get",
       data: { },
       success: function(response) {
-        $("#pokemonCard").html(response)
+        $("#cardsLeft1").html(response)
       },
       error: function(err) {}
   });
+}
+
+function loadCardsLeft2() {
   $.ajax({
-      url: "/card?player=2",
+      url: "/cardsLeft?player=1",
       type: "get",
       data: { },
       success: function(response) {
-        $("#pokemonCard2").html(response)
+        $("#cardsLeft2").html(response)
+      },
+      error: function(err) {}
+  });
+}
+
+function reloadCards(response){
+    loadCard(response.name1)
+    loadCard2(response.name2)
+    loadCardsLeft1()
+    loadCardsLeft2()
+}
+
+function loadCardGameDisplay(){
+  $.ajax({
+      url: "/cardGameDisplay",
+      type: "get",
+      data: { },
+      success: function(response) {
+        $("#cardGameDisplay").html(response)
       },
       error: function(err) {}
   });
@@ -62,14 +83,11 @@ function loadSelectMove() {
 
 function userAttacks(inputVal) {
   $.ajax({
-      url: "/selectMove",
+      url: '/userAttacks?attackType='+inputVal,
       type: "get",
       data: { },
       success: function(response) {
-        $.getJSON('/userAttacks?attackType='+inputVal,
-            function(data) {
-              //do nothing
-            });
+        reloadCards(response)
       },
       error: function(err) {}
   });
@@ -77,14 +95,11 @@ function userAttacks(inputVal) {
 
 function AiAttacks() {
   $.ajax({
-      url: "/selectMove",
+      url: "/AiAttacks",
       type: "get",
       data: { },
       success: function(response) {
-        $.getJSON('/AiAttacks',
-            function(data) {
-              //do nothing
-            });
+        reloadCards(response)
       },
       error: function(err) {}
   });
