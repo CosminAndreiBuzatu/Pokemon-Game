@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+
+<h1>Pokémon damage relation chart</h1>
+<div>
+    <img src = "{{ url_for('static', filename='typeChart.png') }}" alt="pokemon damage relation chart." class="center"/>
+</div>
+
+{% endblock %}

@@ -91,5 +91,9 @@ def cardGameDownload():
 
     return render_template('mainPage.html', game=pokemonGame)
 
+@app.route("/damageRelation")
+def damageRelation():
+    return render_template('damageRelation.html')
+
 
 app.run()
