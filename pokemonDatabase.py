@@ -15,8 +15,8 @@ class PokemonDatabase:
             self.cursor = self.database.cursor()
             self.createPokemonTable()
             self.createTypesTable()
-            self.addDummyDataTypes(constants.types_dict)
-            self.addDummyDataPokemon(constants.bulbasaur_dict)
+            self.addDummyDataTypes(constants.noTypesDict)
+            self.addDummyDataPokemon(constants.noPokemonDict)
         except Exception as e:
             print(e)
 

@@ -31,7 +31,7 @@ def pokedex():
         inputName = names[0]
         pokemon = db.getPokemon(inputName)
     else:
-        pokemon = Pokemon(bulbasaur_dict)
+        pokemon = Pokemon(noPokemonDict)
         pokemon.name = "Empty database"
 
     return render_template('Pokedex.html', pokemon=pokemon, names=names)
@@ -47,7 +47,7 @@ def downloadPokemon():
         inputName = names[0]
         pokemon = db.getPokemon(inputName)
     else:
-        pokemon = Pokemon(bulbasaur_dict)
+        pokemon = Pokemon(noPokemonDict)
         pokemon.name = "Empty database"
 
     return render_template('Pokedex.html', pokemon=pokemon, names=names)

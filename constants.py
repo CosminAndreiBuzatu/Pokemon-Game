@@ -1,6 +1,6 @@
 # Constant file for non changing variables.
 
-bulbasaur_dict = {
+noPokemonDict = {
         "name": "Press Download Data",
         "artwork": "https://www.teleanalysis.com/wp-content/uploads/2018/08/jio-data-consumption-issue-e1533921963505.png",
         "attack": "No Data",
@@ -8,7 +8,7 @@ bulbasaur_dict = {
         "types": "?"
     }
 
-types_dict ={
+noTypesDict ={
         "name": "?",
         "doubleDamage": "fire",
         "halfDamage": "rock",
