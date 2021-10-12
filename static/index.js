@@ -62,7 +62,6 @@ function reloadCards(response){
     loadCardsLeft1()
     loadCardsLeft2()
     loadSelectMove()
-    alert(response.win)
     if (response.win){
         cardOpacity1("0.25")
         cardOpacity2("0.25")
@@ -100,7 +99,7 @@ function userAttacks(inputVal) {
       data: { },
       success: function(response) {
         cardOpacity1("1.0")
-        reloadCards(response)
+        setTimeout(function(){reloadCards(response); }, 1000);
       },
       error: function(err) {}
   });
@@ -113,7 +112,8 @@ function AiAttacks() {
       data: { },
       success: function(response) {
         cardOpacity2("1.0")
-        reloadCards(response)
+        setTimeout(function(){reloadCards(response); }, 1000);
+
       },
       error: function(err) {}
   });
