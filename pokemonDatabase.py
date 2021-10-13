@@ -6,7 +6,6 @@ from pokemon import Pokemon
 from fetchApi import *
 
 
-
 class PokemonDatabase:
 
     def __init__(self):
@@ -44,7 +43,7 @@ class PokemonDatabase:
             self.addDummyDataTypes(constants.noTypesDict)
 
     def addDummyDataTypes(self, dummy):
-        fix = [dummy["name"],dummy["doubleDamage"], dummy["halfDamage"],dummy["noDamage"]]
+        fix = [dummy["name"], dummy["doubleDamage"], dummy["halfDamage"], dummy["noDamage"]]
         sqlCommand = f'''
             INSERT INTO Type ( Name, DoubleDamage, HalfDamage, NoDamage ) 
             VALUES ( ? , ? , ? , ? );
@@ -52,14 +51,14 @@ class PokemonDatabase:
         self.cursor.execute(sqlCommand, fix)
         self.database.commit()
 
-    def addDummyDataPokemon(self,dummy):
+    def addDummyDataPokemon(self, dummy):
         fix = [dummy["name"], dummy['artwork'],
-             dummy['attack'], dummy['defence'], dummy['types']]
+               dummy['attack'], dummy['defence'], dummy['types']]
         sqlCommand = f'''
             INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Types ) 
             VALUES ( ? , ? , ? , ? , ? );
         '''
-        self.cursor.execute(sqlCommand,fix)
+        self.cursor.execute(sqlCommand, fix)
         self.database.commit()
 
     def clearPokemonTable(self):
@@ -112,7 +111,6 @@ class PokemonDatabase:
             output.append(pokemon)
         return output
 
-
     def SQLToPokemon(self, row):
         dict = {
             "name": row[0],
@@ -120,7 +118,7 @@ class PokemonDatabase:
             "attack": row[2],
             "defense": row[3],
             "types": row[4].split()
-            }
+        }
 
         return Pokemon(dict)
 
@@ -144,7 +142,6 @@ class PokemonDatabase:
         self.addManyPokemon(listOfPokemon)
         self.downloadTypes()
 
-
     def createTypesTable(self):
         # Create a SQL Table
         sqlCommand = f'''
@@ -164,13 +161,13 @@ class PokemonDatabase:
 
         return Types(dict)
 
-    def dBToType(self, row):
+    def dbToType(self, row):
         dict = {
             "name": row[0],
             "doubleDamage": row[1].split(),
             "halfDamage": row[2].split(),
             "noDamage": row[3].split()
-            }
+        }
 
         return Types(dict)
 
@@ -181,9 +178,7 @@ class PokemonDatabase:
         '''
         self.cursor.execute(sqlCommand, [name])
         type = self.cursor.fetchall()
-        return self.dBToType(type[0])
-
-
+        return self.dbToType(type[0])
 
     def addAllTypes(self, listOfTypes):
         for type in listOfTypes:
@@ -201,6 +196,7 @@ class PokemonDatabase:
         listOfTypes = pokemonApiObject.fetchAllTypes(1, 18)
         self.addAllTypes(listOfTypes)
 
+
 if __name__ == "__main__":
     db = PokemonDatabase()
     db.clearPokemonTable()
@@ -208,4 +204,3 @@ if __name__ == "__main__":
     listp = db.getAllPokemon()
     print(db.getType('electric'))
     print(listp)
-
