@@ -25,7 +25,7 @@ class Game:
         pygame.mixer.init()
 
     def backgroundMusic(self):
-        pygame.mixer.music.load("C:/Users/ldemattos/PycharmProjects/PokemonProject2/Pokemon-Game/soundFiles/Preliator.mp3")
+        pygame.mixer.music.load("C:/Users/ldemattos/PycharmProjects/PokemonProject2/Pokemon-Game/soundFiles/Pokémon_Battle_Music_Remixed _ 2 Hour.mp3")
         pygame.mixer.music.play()
 
     def getNewDecks(self):
@@ -129,6 +129,14 @@ class Game:
         else:
             return 0
 
+    def controlMusic(self):
+        music = input("Turn off music? y/n")
+        # document.createElement("<p>")
+        if music == "y":
+            pass
+        else:
+            self.controlMusic()
+
 
 if __name__ == "__main__":
     g = Game()
@@ -141,4 +149,11 @@ if __name__ == "__main__":
     topcard1 = g.deck1[0]
     g.winCard(False)
     assert topcard1 == g.deck2[-1]
-    input()
+    g.controlMusic()
+
+
+# generic attack
+# pokemon KO
+# you lose
+# You Win!
+# background
