@@ -14,8 +14,8 @@ class PokemonDatabase:
             self.cursor = self.database.cursor()
             self.createPokemonTable()
             self.createTypesTable()
-            self.addDummyDataTypes(constants.noTypesDict)
-            self.addDummyDataPokemon(constants.noPokemonDict)
+            self.ifTablePokemonEmptyAddData()
+            self.ifTableTypeEmptyAddData()
         except Exception as e:
             print(e)
 
@@ -29,6 +29,18 @@ class PokemonDatabase:
         '''
         self.cursor.execute(sqlCommand)
         self.database.commit()
+
+    def ifTablePokemonEmptyAddData(self):
+        self.cursor.execute("""SELECT * from Pokemon limit 1""")
+        result = self.cursor.fetchall()
+        if not result:
+            self.addDummyDataPokemon(constants.noPokemonDict)
+
+    def ifTableTypeEmptyAddData(self):
+        self.cursor.execute("""SELECT * from Type limit 1""")
+        result = self.cursor.fetchall()
+        if not result:
+            self.addDummyDataTypes(constants.noTypesDict)
 
     def addDummyDataTypes(self, dummy):
         fix = [dummy["name"], dummy["doubleDamage"], dummy["halfDamage"], dummy["noDamage"]]
