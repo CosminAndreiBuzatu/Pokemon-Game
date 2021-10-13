@@ -149,7 +149,7 @@ class PokemonDatabase:
 
         return Types(dict)
 
-    def dBToType(self, row):
+    def dbToType(self, row):
         dict = {
             "name": row[0],
             "doubleDamage": row[1].split(),
@@ -166,7 +166,7 @@ class PokemonDatabase:
         '''
         self.cursor.execute(sqlCommand, [name])
         type = self.cursor.fetchall()
-        return self.dBToType(type[0])
+        return self.dbToType(type[0])
 
     def addAllTypes(self, listOfTypes):
         for type in listOfTypes:
