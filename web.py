@@ -10,6 +10,10 @@ app = Flask(__name__)
 pokemonGame = Game()
 
 
+@app.route("/test")
+def test():
+    return render_template('test.html')
+
 @app.route("/")
 def mainPage():
     return render_template('mainPage.html')

@@ -16,7 +16,7 @@ function loadCard2(pokemonName) {
       type: "get",
       data: { },
       success: function(response) {
-        $("#pokemonCard2").html(response)
+        $(".cardContent, .AiCard").html(response)
       },
       error: function(err) {}
   });
@@ -55,6 +55,23 @@ function cardOpacity2(inputVal){
     var element = document.getElementById("pokemonCard2");
     element.style.opacity = inputVal;
 }
+
+function shakeElement(element){
+    setTimeout(function(){
+        $(element).effect("shake")
+    }, 500);
+}
+
+function userAttackAnimation(){
+    $("#pokemonCard").effect("shake",{times:1,distance:50,direction:'left'})
+}
+
+function AiAttackAnimation(){
+    $("#pokemonCard2").effect("shake",{times:1,distance:50,direction:'right'})
+}
+
+
+
 
 function reloadCards(response){
     loadCard(response.name1)
@@ -100,6 +117,8 @@ function userAttacks(inputVal) {
       success: function(response) {
         cardOpacity1("1.0")
         cardOpacity2("1.0")
+        userAttackAnimation()
+        shakeElement("#pokemonCard2")
         setTimeout(function(){reloadCards(response); }, 1000);
       },
       error: function(err) {}
@@ -113,6 +132,8 @@ function AiAttacks() {
       data: { },
       success: function(response) {
         cardOpacity2("1.0")
+        AiAttackAnimation()
+        shakeElement("#pokemonCard")
         setTimeout(function(){reloadCards(response); }, 1000);
 
       },
