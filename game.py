@@ -21,14 +21,14 @@ class Game:
         self.winner = ""
         self.deck1 = []
         self.deck2 = []
+        self.db = PokemonDatabase()
 
     def getNewDecks(self):
         # get 151 pokemon from database, put in a list and shuffle it, split them in two.
-        db = PokemonDatabase()
-        newDeck = db.getAllFirstStagePokemon()
+        newDeck = self.db.getAllFirstStagePokemon()
         random.shuffle(newDeck)
 
-        if len(newDeck) % 2 == 0:
+        if len(newDeck) % 2 == 1:
             newDeck.pop()
         midpoint = int(len(newDeck) / 2)
         self.deck1 = newDeck[:midpoint]
@@ -83,6 +83,10 @@ class Game:
         didKO = self.dealDamage(self.deck2[0], self.deck1[0], attackType)
 
         if didKO:
+            evolutionName = self.deck2[0].evolvesTo
+            if evolutionName is not None:
+                evolution = self.db.getPokemon(evolutionName)
+                self.deck2[0] = evolution
             self.winCard(False)
             roundWin = True
         else:
@@ -96,6 +100,10 @@ class Game:
         didKO = self.dealDamage(self.deck1[0], self.deck2[0], attackType)
 
         if didKO:
+            evolutionName = self.deck1[0].evolvesTo
+            if evolutionName is not None:
+                evolution = self.db.getPokemon(evolutionName)
+                self.deck1[0] = evolution
             self.winCard(True)
             roundWin = True
         else:

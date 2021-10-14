@@ -10,7 +10,7 @@ class PokemonDatabase:
 
     def __init__(self):
         try:
-            self.database = sqlite3.connect(f"gameDatabase.db")
+            self.database = sqlite3.connect(f"gameDatabase.db", check_same_thread=False)
             self.cursor = self.database.cursor()
             self.createPokemonTable()
             self.createTypesTable()
