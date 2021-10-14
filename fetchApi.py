@@ -4,11 +4,12 @@ import requests
 from pokemon import Pokemon
 from pokemonTypes import Types
 
-#create object and call all these functions on it
-class PokemonAPI():
-# Method to extract API data of one pokemon
 
-    def fetchPokemon(self,number):
+# create object and call all these functions on it
+class PokemonAPI():
+    # Method to extract API data of one pokemon
+
+    def fetchPokemon(self, number):
         try:
             r = requests.get(f'https://pokeapi.co/api/v2/pokemon/{number}')
         except:
@@ -25,7 +26,8 @@ class PokemonAPI():
             if evolution["chain"]["evolves_to"][0]["species"]["name"] == response["species"]["name"]:
                 stage = 2
             if len(evolution["chain"]["evolves_to"][0]["evolves_to"]) != 0:
-                if evolution["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"] == response["species"]["name"]:
+                if evolution["chain"]["evolves_to"][0]["evolves_to"][0]["species"]["name"] == response["species"][
+                    "name"]:
                     stage = 3
         if stage == 1 and len(evolution["chain"]["evolves_to"]) != 0:
             evolves = evolution["chain"]["evolves_to"][0]["species"]["name"]
@@ -34,9 +36,9 @@ class PokemonAPI():
         else:
             evolves = None
         if "is_baby" in evolution["chain"] and evolution["chain"]["is_baby"] == True and stage != None:
-           stage -=1
+            stage -= 1
 
-        pokemonTypes =[]
+        pokemonTypes = []
         types = response["types"]
         for type in types:
             pokemonTypes.append(type["type"]["name"])
@@ -59,18 +61,7 @@ class PokemonAPI():
             listOfPokemon.append(pokemon)
         return listOfPokemon
 
-    # r = requests.get('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151')
-
-    # Store the following:
-    # For each Pokemon:
-    # - Name
-    # - Artwork image (as URL)
-    # - Attack value
-    # - Defense value
-    # - Types
-
-
-    def fetchTypes(self,number):
+    def fetchTypes(self, number):
         try:
             r = requests.get(f'https://pokeapi.co/api/v2/type/{number}')
         except:
@@ -79,7 +70,7 @@ class PokemonAPI():
 
         response = r.json()
 
-        doubleDamages =[]
+        doubleDamages = []
         halfDamages = []
         noDamages = []
         double = response["damage_relations"]["double_damage_to"]
@@ -101,13 +92,14 @@ class PokemonAPI():
 
         return Types(input_dict)
 
-
-    def fetchAllTypes(self,start, end):
+    def fetchAllTypes(self, start, end):
         allTypes = []
         for number in range(start, end + 1):
             types = self.fetchTypes(number)
             allTypes.append(types)
         return allTypes
 
-pokemonApiObject = PokemonAPI()
-pokemonApiObject.fetchPokemon(25)
+
+if __name__ == "__main__":
+    pokemonApiObject = PokemonAPI()
+    pokemonApiObject.fetchPokemon(25)
