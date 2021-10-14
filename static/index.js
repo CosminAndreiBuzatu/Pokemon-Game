@@ -140,12 +140,31 @@ function userAttacks(inputVal) {
                         $("#pokemonCard2 img:last").hide("drop", {direction: "down"}, 1000 , function(){
                             $("#pokemonCard2 img:last").show();
                             $("#pokemonCard2 img:last").css("opacity", "0.0");
-                            $("#pokemonCard").fadeTo(500, 0)
-                            $("#pokemonCard2").fadeTo(500, 0, function(){
-                                $("#pokemonCard2 img:last").css("opacity", "1.0");
-                                reloadCards(response);
-                            });
-                            setTimeout(function(){ $("#pokemonCard").fadeTo(500, 1);}, 500);
+                            if (response.evolution != null ){
+                                $("#pokemonCard img:last").effect("pulsate", 1000 , function(){
+                                    loadCard(response.evolution);
+                                    setTimeout(function(){
+                                        alert("Your "+response.preevolution+" evolved into a "+response.evolution+"!")
+                                        $("#pokemonCard").fadeTo(500, 0);
+                                        $("#pokemonCard2").fadeTo(500, 0, function(){
+                                            $("#pokemonCard2 img:last").css("opacity", "1.0");
+                                            reloadCards(response);
+                                        });
+                                        setTimeout(function(){ $("#pokemonCard").fadeTo(500, 1);}, 500);
+                                    }, 1000);
+                                });
+                            } else{
+
+                                $("#pokemonCard").fadeTo(500, 0);
+                                $("#pokemonCard2").fadeTo(500, 0, function(){
+                                    $("#pokemonCard2 img:last").css("opacity", "1.0");
+                                    reloadCards(response);
+                                });
+                                setTimeout(function(){ $("#pokemonCard").fadeTo(500, 1);}, 500);
+
+                            }
+
+
                         });
                     } else {
                         reloadCards(response);
@@ -173,12 +192,31 @@ function AiAttacks() {
                         $("#pokemonCard img:last").hide("drop", {direction: "down"}, 1000 , function(){
                             $("#pokemonCard img:last").show();
                             $("#pokemonCard img:last").css("opacity", "0.0");
-                            $("#pokemonCard2").fadeTo(500, 0)
-                            $("#pokemonCard").fadeTo(500, 0, function(){
-                                $("#pokemonCard img:last").css("opacity", "1.0");
-                                setTimeout(function(){ $("#pokemonCard").fadeTo(500, 1);}, 500);
-                                reloadCards(response);
-                            });
+
+                            if (response.evolution != null ){
+                                $("#pokemonCard2 img:last").effect("pulsate", 1000 , function(){
+                                    loadCard2(response.evolution);
+                                    setTimeout(function(){
+                                        alert("Opponant "+response.preevolution+" evolved into a "+response.evolution+"!")
+                                        $("#pokemonCard2").fadeTo(500, 0)
+                                        $("#pokemonCard").fadeTo(500, 0, function(){
+                                            $("#pokemonCard img:last").css("opacity", "1.0");
+                                            setTimeout(function(){ $("#pokemonCard").fadeTo(500, 1);}, 500);
+                                            reloadCards(response);
+                                        });
+                                    }, 1000);
+                                });
+                            } else{
+
+                                $("#pokemonCard2").fadeTo(500, 0)
+                                $("#pokemonCard").fadeTo(500, 0, function(){
+                                    $("#pokemonCard img:last").css("opacity", "1.0");
+                                    setTimeout(function(){ $("#pokemonCard").fadeTo(500, 1);}, 500);
+                                    reloadCards(response);
+                                });
+
+                            }
+
                         });
                     } else {
                         reloadCards(response);
