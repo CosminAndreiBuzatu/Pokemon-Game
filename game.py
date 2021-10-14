@@ -100,12 +100,12 @@ class Game:
         didKO = self.dealDamage(self.deck1[0], self.deck2[0], attackType)
 
         if didKO:
+            evolutionName = self.deck1[0].evolvesTo
+            if evolutionName is not None:
+                evolution = self.db.getPokemon(evolutionName)
+                self.deck1[0] = evolution
             self.winCard(True)
             roundWin = True
-            if self.deck1[0].evolvesTo:
-                evol = self.db.getPokemon(self.deck1[0].evolvesTo)
-                evolves = self.db.SQLToPokemon(evol)
-                self.deck1[0] = evolves
         else:
             self.switchTurns()
             roundWin = False
