@@ -6,6 +6,8 @@ class Pokemon:
         self.attack = input_dictionary["attack"]
         self.defense = input_dictionary["defense"]
         self.types = input_dictionary["types"]
+        self.evolutionStage = input_dictionary["evolutionStage"]
+        self.evolvesTo = input_dictionary["evolvesTo"]
 
     def __str__(self):
         return self.name
@@ -18,11 +20,18 @@ class Pokemon:
         typesString = " ".join(self.types)
         return typesString
 
+    def getEvolution(self,db):
+        if self.evolvesTo:
+            evolves = db.getPokemon(self.evolvesTo)
+            return db.SQLToPokemon(evolves)
+
     def toJson(self):
         output = {
             "name": self.name,
             "artwork": self.artwork,
             "attack": self.attack,
             "defense": self.defense,
-            "types": self.getTypes()
+            "types": self.getTypes(),
+            "evolutionStage": self.evolutionStage,
+            "evolvesTo" : self.evolvesTo
         }

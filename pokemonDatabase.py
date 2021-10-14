@@ -25,7 +25,7 @@ class PokemonDatabase:
     def createPokemonTable(self):
         # Create a SQL Table
         sqlCommand = f'''
-            CREATE TABLE IF NOT EXISTS Pokemon ( Name TEXT, Artwork TEXT, Attack INT, Defence INT, Types TEXT )
+            CREATE TABLE IF NOT EXISTS Pokemon ( Name TEXT, Artwork TEXT, Attack INT, Defence INT, Types TEXT, Stage INT, Evolution TEXT )
         '''
         self.cursor.execute(sqlCommand)
         self.database.commit()
@@ -53,10 +53,10 @@ class PokemonDatabase:
 
     def addDummyDataPokemon(self, dummy):
         fix = [dummy["name"], dummy['artwork'],
-               dummy['attack'], dummy['defence'], dummy['types']]
+               dummy['attack'], dummy['defence'], dummy['types'], dummy['evolutionStage'], dummy['evolvesTo']]
         sqlCommand = f'''
-            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Types ) 
-            VALUES ( ? , ? , ? , ? , ? );
+            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Types, Stage, Evolution ) 
+            VALUES ( ? , ? , ? , ? , ? , ? , ?);
         '''
         self.cursor.execute(sqlCommand, fix)
         self.database.commit()
@@ -69,10 +69,10 @@ class PokemonDatabase:
         self.database.commit()
 
     def addPokemon(self, pokemon):
-        values = [pokemon.name, pokemon.artwork, pokemon.attack, pokemon.defense, ' '.join(pokemon.types)]
+        values = [pokemon.name, pokemon.artwork, pokemon.attack, pokemon.defense, ' '.join(pokemon.types), pokemon.evolutionStage, pokemon.evolvesTo]
         sqlCommand = f'''
-            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Types ) 
-            VALUES ( ? , ? , ? , ? , ? );
+            INSERT INTO Pokemon ( Name, Artwork, Attack, Defence, Types, Stage, Evolution ) 
+            VALUES ( ? , ? , ? , ? , ? , ? , ? );
         '''
         self.cursor.execute(sqlCommand, values)
         self.database.commit()
@@ -117,7 +117,9 @@ class PokemonDatabase:
             "artwork": row[1],
             "attack": row[2],
             "defense": row[3],
-            "types": row[4].split()
+            "types": row[4].split(),
+            "evolutionStage": row[5],
+            "evolvesTo": row[6]
         }
 
         return Pokemon(dict)
