@@ -1,10 +1,12 @@
 <div class="pokecard">
-    <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
-    <div class="pokemonDetails">
-        <p class="namePokemon">{{pokemon.name}}</p>
-        <img class="pokemonImage" src={{pokemon.artwork}} alt="Logo">
+    <div class="cardContent">
+        <img class="Logo" src="https://www.freepnglogos.com/uploads/gotta-catch-em-all-transparent-pokemon-logo-11.png" alt="Logo">
+        <div class="pokemonDetails">
+            <p class="namePokemon">{{pokemon.name}}</p>
+            <img class="pokemonImage" src={{pokemon.artwork}} alt="Logo">
+        </div>
+        <p class="details">Attack: {{pokemon.attack}}</p>
+        <p class="details">Defense: {{pokemon.defense}}</p>
+        <p class="details">Type: {{pokemon.getTypes()}}</p>
     </div>
-    <p class="details">Attack: {{pokemon.attack}}</p>
-    <p class="details">Defense: {{pokemon.defense}}</p>
-    <p class="details">Type: {{pokemon.getTypes()}}</p>
 </div>

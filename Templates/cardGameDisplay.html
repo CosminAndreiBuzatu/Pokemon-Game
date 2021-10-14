@@ -12,7 +12,9 @@
       {% else %}
     <script>  loadCard("{{game.getTopCards()[0].name}}")</script>
       {% endif %}
-      <div id="pokemonCard" class="userCard"></div>
+      <div class="pokecardBack">
+        <div id="pokemonCard" class="userCard"></div>
+      </div>
       <br>
       <br>
       <script> loadCardsLeft1() </script>
@@ -31,7 +33,9 @@
       {% else %}
     <script>  loadCard2("{{game.getTopCards()[1].name}}")</script>
       {% endif %}
-      <div id="pokemonCard2" class="AiCard" ></div>
+      <div class="pokecardBack">
+        <div id="pokemonCard2" class="AiCard" ></div>
+      </div>
       <br>
       <br>
       <script> loadCardsLeft2() </script>
