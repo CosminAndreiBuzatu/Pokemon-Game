@@ -25,10 +25,10 @@ class Game:
     def getNewDecks(self):
         # get 151 pokemon from database, put in a list and shuffle it, split them in two.
         db = PokemonDatabase()
-        newDeck = db.getAllPokemon()
+        newDeck = db.getAllFirstStagePokemon()
         random.shuffle(newDeck)
 
-        if len(newDeck) % 2 == 1:
+        if len(newDeck) % 2 == 0:
             newDeck.pop()
         midpoint = int(len(newDeck) / 2)
         self.deck1 = newDeck[:midpoint]

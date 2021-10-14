@@ -20,10 +20,17 @@ class Pokemon:
         typesString = " ".join(self.types)
         return typesString
 
-    def getEvolution(self,db):
+    def evolve(self,db):
         if self.evolvesTo:
-            evolves = db.getPokemon(self.evolvesTo)
-            return db.SQLToPokemon(evolves)
+            evol = db.getPokemon(self.evolvesTo)
+            evolves = db.SQLToPokemon(evol)
+            self.name = evolves.name,
+            self.artwork = evolves.artwork,
+            self.attack = evolves.attack,
+            self.defense = evolves.defense,
+            self.types = evolves.types,
+            self.evolutionStage = evolves.evolutionStage,
+            self.evolvesTo = evolves.evolvesTo
 
     def toJson(self):
         output = {

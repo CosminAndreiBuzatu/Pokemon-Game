@@ -111,6 +111,23 @@ class PokemonDatabase:
             output.append(pokemon)
         return output
 
+    def getAllFirstStagePokemon(self):
+        sqlCommand = f'''
+        SELECT * FROM Pokemon
+        WHERE Stage = 1;
+    '''
+        self.cursor.execute(sqlCommand)
+        rows = self.cursor.fetchall()
+
+        if len(rows) == 0:
+            return "Error, no pokemon found"
+
+        output = []
+        for row in rows:
+            pokemon = self.SQLToPokemon(row)
+            output.append(pokemon)
+        return output
+
     def SQLToPokemon(self, row):
         dict = {
             "name": row[0],
