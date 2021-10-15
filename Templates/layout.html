@@ -13,9 +13,17 @@
       <script type = "text/javascript"
          src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js">
       </script>
-
 </head>
 <body>
+<audio id='attackAudio'>
+    <source src="static/attack2.wav" type='audio/wav'>
+</audio>
+<audio id='KoedAudio'>
+    <source src="static/Koed.wav" type='audio/wav'>
+</audio>
+<audio id='victoryAudio'>
+    <source src="static/victory.mp3" type='audio/mpeg'>
+</audio>
 <div>
     {% block content %}{% endblock %}
 </div>

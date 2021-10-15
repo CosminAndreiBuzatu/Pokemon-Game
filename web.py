@@ -1,6 +1,6 @@
 # This file is for creating and running site using Flask
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from constants import *
 from game import Game
 from pokemonDatabase import PokemonDatabase
@@ -13,6 +13,7 @@ pokemonGame = Game()
 @app.route("/test")
 def test():
     return render_template('test.html')
+
 
 @app.route("/")
 def mainPage():
@@ -140,9 +141,17 @@ def cardGameDownload():
 
     return render_template('mainPage.html', game=pokemonGame)
 
+
 @app.route("/damageRelation")
 def damageRelation():
     return render_template('damageRelation.html')
+
+
+@app.route('/audio/attack')
+def download_file():
+    print("audio play")
+    output = send_from_directory("/static/", "attack.wav", as_attachment=True)
+    return output
 
 
 app.run()
