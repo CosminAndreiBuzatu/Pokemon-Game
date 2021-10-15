@@ -160,6 +160,7 @@ function userAttacks(inputVal) {
 
 
 function AiAttacks() {
+  attackAudio();
   $.ajax({
       url: "/AiAttacks",
       type: "get",
@@ -189,4 +190,18 @@ function AiAttacks() {
       },
       error: function(err) {}
   });
+}
+
+function attackAudio(){
+$.ajax({
+    url: "/audio/attack",
+    type: "get",
+    data: { },
+    success: function(response) {
+        alert(response)
+        var audio = new Audio(response);
+        response.play();
+    },
+    error: function(err) {}
+});
 }
