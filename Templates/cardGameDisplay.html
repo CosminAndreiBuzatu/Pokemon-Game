@@ -1,11 +1,7 @@
   <div class="cardDisplay">
 
     <div class="padded" style="height: 650px;">
-    {% if game.usersTurn %}
-    <h2>Your turn!</h2>
-    {% else %}
-    <h2> * </h2>
-    {% endif %}
+      <div id="cardsLeft1"></div>
 
       {% if game.checkForWinner() == 2 %}
     <script>  loadCard("loose")</script>
@@ -18,15 +14,10 @@
       <br>
       <br>
       <script> loadCardsLeft1() </script>
-      <div id="cardsLeft1"></div>
     </div>
 
     <div class="padded">
-    {% if game.usersTurn %}
-    <h2> * </h2>
-    {% else %}
-    <h2>Opponents Turn!</h2>
-    {% endif %}
+      <div id="cardsLeft2"></div>
 
       {% if game.checkForWinner() == 1 %}
     <script>  loadCard2("loose")</script>
@@ -39,6 +30,5 @@
       <br>
       <br>
       <script> loadCardsLeft2() </script>
-      <div id="cardsLeft2"></div>
     </div>
   </div>

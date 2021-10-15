@@ -1,1 +1,15 @@
+{% if player == 0 %}
+    {% if game.usersTurn %}
+    <h2>Your turn!</h2>
+    {% else %}
+    <h2> <wbr> </h2>
+    {% endif %}
+{% else %}
+    {% if game.usersTurn %}
+    <h2> <wbr> </h2>
+    {% else %}
+    <h2>Opponents Turn!</h2>
+    {% endif %}
+{% endif %}
+
 <h2>Cards Left: {{game.getCardsLeft()[player]}}</h2>
