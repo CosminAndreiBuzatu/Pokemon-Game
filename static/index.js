@@ -144,6 +144,7 @@ function userAttacks(inputVal) {
                             $("#pokemonCard2 img:last").css("opacity", "0.0");
                             if (response.evolution != null ){
                                 $("#pokemonCard img:last").effect("pulsate", 1000 , function(){
+                                    evolutionAudio();
                                     loadCard(response.evolution);
                                     setTimeout(function(){
                                         alert("Your "+response.preevolution+" evolved into a "+response.evolution+"!")
@@ -199,6 +200,7 @@ function AiAttacks() {
 
                             if (response.evolution != null ){
                                 $("#pokemonCard2 img:last").effect("pulsate", 1000 , function(){
+                                    evolutionAudio();
                                     loadCard2(response.evolution);
                                     setTimeout(function(){
                                         alert("Opponant "+response.preevolution+" evolved into a "+response.evolution+"!")
@@ -247,5 +249,9 @@ function KoedAudio(){
 }
 function victoryAudio(){
     var x = document.getElementById("victoryAudio");
+    x.play();
+}
+function evolutionAudio(){
+    var x = document.getElementById("evolutionAudio");
     x.play();
 }
