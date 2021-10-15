@@ -100,6 +100,4 @@ class PokemonAPI():
         return allTypes
 
 
-if __name__ == "__main__":
-    pokemonApiObject = PokemonAPI()
-    pokemonApiObject.fetchPokemon(25)
+pokemonApiObject = PokemonAPI()
