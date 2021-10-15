@@ -82,6 +82,7 @@ class Game:
     def AiAttacks(self, attackType) -> bool:
         didKO = self.dealDamage(self.deck2[0], self.deck1[0], attackType)
 
+        evolutionName = None
         if didKO:
             evolutionName = self.deck2[0].evolvesTo
             if evolutionName is not None:
@@ -93,12 +94,13 @@ class Game:
             self.switchTurns()
             roundWin = False
 
-        return roundWin
+        return roundWin, evolutionName
         # return self.checkForWinner() == 2
 
     def userAttacks(self, attackType) -> bool:
         didKO = self.dealDamage(self.deck1[0], self.deck2[0], attackType)
 
+        evolutionName = None
         if didKO:
             evolutionName = self.deck1[0].evolvesTo
             if evolutionName is not None:
@@ -110,7 +112,7 @@ class Game:
             self.switchTurns()
             roundWin = False
 
-        return roundWin
+        return roundWin, evolutionName
         # return self.checkForWinner() == 1
 
     def dealDamage(self, attacker, defender, attackType):

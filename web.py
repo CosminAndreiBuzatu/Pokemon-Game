@@ -102,26 +102,32 @@ def cardsLeft():
 
 @app.route("/userAttacks")
 def userAttacks():
+    preevolution = pokemonGame.deck1[0].name
     attackType = request.args.get("attackType")
-    win = pokemonGame.userAttacks(attackType)
+    win, evolution = pokemonGame.userAttacks(attackType)
     print(f"User uses {attackType}")
     output = {
         "name1": pokemonGame.deck1[0].name,
         "name2": pokemonGame.deck2[0].name,
-        "win": win
+        "win": win,
+        "preevolution": preevolution,
+        "evolution": evolution
     }
     return output
 
 
 @app.route("/AiAttacks")
 def AiAttacks():
+    preevolution = pokemonGame.deck2[0].name
     attackType = pokemonGame.AiPickAttack()
-    win = pokemonGame.AiAttacks(attackType)
+    win, evolution = pokemonGame.AiAttacks(attackType)
     print("Ai has attacked")
     output = {
         "name1": pokemonGame.deck1[0].name,
         "name2": pokemonGame.deck2[0].name,
-        "win": win
+        "win": win,
+        "preevolution": preevolution,
+        "evolution": evolution
     }
     return output
 
