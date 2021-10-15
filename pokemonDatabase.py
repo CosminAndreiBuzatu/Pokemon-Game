@@ -215,11 +215,31 @@ class PokemonDatabase:
         listOfTypes = pokemonApiObject.fetchAllTypes(1, 18)
         self.addAllTypes(listOfTypes)
 
+    def removeUnknownEvolutions(self):
+        allNames = self.getAllNames()
+        print(allNames)
+
+        for name in allNames:
+            pokemon = self.getPokemon(name)
+            if pokemon.evolvesTo not in allNames and pokemon.evolvesTo is not None:
+                sqlCommand = f'''
+                    UPDATE Pokemon
+                    SET 
+                        Evolution = ?
+                    WHERE 
+                        Name = ? ;
+                '''
+                sqlFields = [None, name]
+                self.cursor.execute(sqlCommand, sqlFields)
+                self.database.commit()
+
 
 if __name__ == "__main__":
     db = PokemonDatabase()
-    db.clearPokemonTable()
-    db.downloadPokemon()
-    listp = db.getAllPokemon()
-    print(db.getType('electric'))
-    print(listp)
+    db.removeUnknownEvolutions()
+    #
+    # db.clearPokemonTable()
+    # db.downloadPokemon()
+    # listp = db.getAllPokemon()
+    # print(db.getType('electric'))
+    # print(listp)
