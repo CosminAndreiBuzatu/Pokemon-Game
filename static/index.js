@@ -132,11 +132,13 @@ function userAttacks(inputVal) {
       type: "get",
       data: { },
       success: function(response) {
+        attackAudio();
         $("#pokemonCard2").fadeTo(500, 1, function(){
             userAttackAnimation();
             setTimeout(function(){
                 $("#pokemonCard2 img:last").effect("shake", function(){
                     if (response.win == true){
+                        victoryAudio();
                         $("#pokemonCard2 img:last").hide("drop", {direction: "down"}, 1000 , function(){
                             $("#pokemonCard2 img:last").show();
                             $("#pokemonCard2 img:last").css("opacity", "0.0");
@@ -160,17 +162,18 @@ function userAttacks(inputVal) {
 
 
 function AiAttacks() {
-  attackAudio();
   $.ajax({
       url: "/AiAttacks",
       type: "get",
       data: { },
       success: function(response) {
+        attackAudio();
         $("#pokemonCard2").fadeTo(500, 1, function(){
             AiAttackAnimation();
             setTimeout(function(){
                 $("#pokemonCard img:last").effect("shake", function(){
                     if (response.win == true){
+                        KoedAudio();
                         $("#pokemonCard img:last").hide("drop", {direction: "down"}, 1000 , function(){
                             $("#pokemonCard img:last").show();
                             $("#pokemonCard img:last").css("opacity", "0.0");
@@ -196,9 +199,15 @@ function AiAttacks() {
 
 
 function attackAudio(){
+    var x = document.getElementById("attackAudio");
+    setTimeout( function(){x.play();}, 500)
+}
 
-var a = getElementById('attackAudio')
-
-a.play()
-
+function KoedAudio(){
+    var x = document.getElementById("KoedAudio");
+    x.play();
+}
+function victoryAudio(){
+    var x = document.getElementById("victoryAudio");
+    x.play();
 }
