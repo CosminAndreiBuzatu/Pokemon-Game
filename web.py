@@ -144,7 +144,7 @@ def damageRelation():
 @app.route('/audio/attack')
 def download_file():
     print("audio play")
-    output = send_from_directory("/audio/", "attack.wav", as_attachment=True)
+    output = send_from_directory("/static/", "attack.wav", as_attachment=True)
     return output
 
 
