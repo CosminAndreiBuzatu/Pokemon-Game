@@ -193,15 +193,15 @@ function AiAttacks() {
 }
 
 function attackAudio(){
-$.ajax({
-    url: "/audio/attack",
-    type: "get",
-    data: { },
-    success: function(response) {
-        alert(response)
-        var audio = new Audio(response);
-        response.play();
-    },
-    error: function(err) {}
-});
+    $.ajax({
+        url: "/audio/attack",
+        type: "get",
+        data: { },
+        success: function(response) {
+            alert(response)
+            var audio = new Audio(response);
+            response.play();
+        },
+        error: function(err) {}
+    });
 }
