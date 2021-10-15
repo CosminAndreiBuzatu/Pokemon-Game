@@ -3,6 +3,8 @@ class Pokemon:
     def __init__(self, input_dictionary):
         self.name = input_dictionary["name"]
         self.artwork = input_dictionary["artwork"]
+        self.hitPoints = input_dictionary["hitPoints"]
+        self.hitPointsMax = input_dictionary["hitPoints"]
         self.attack = input_dictionary["attack"]
         self.defense = input_dictionary["defense"]
         self.types = input_dictionary["types"]
@@ -24,9 +26,11 @@ class Pokemon:
         output = {
             "name": self.name,
             "artwork": self.artwork,
+            "hitPoints": self.hitPoints,
             "attack": self.attack,
             "defense": self.defense,
             "types": self.getTypes(),
             "evolutionStage": self.evolutionStage,
             "evolvesTo" : self.evolvesTo
         }
+        return output

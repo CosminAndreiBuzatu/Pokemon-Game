@@ -114,13 +114,17 @@ class Game:
         # return self.checkForWinner() == 1
 
     def dealDamage(self, attacker, defender, attackType):
-        attackValue = attacker.attack
-        defenderValue = defender.defense
+
+        damage = 30 * attacker.attack / defender.defense
+
         db = PokemonDatabase()
         attackTypeObj = db.getType(attackType)
         multiplyer = attackTypeObj.calculateDamageMultiplier(defender.types)
-        attackValue *= multiplyer
-        return attackValue > defenderValue
+        damage *= multiplyer
+
+        defender.hitPoints -= int(damage)
+
+        return defender.hitPoints < 1
 
     def winCard(self, userWon):
         if userWon:
